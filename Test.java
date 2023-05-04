@@ -2,7 +2,7 @@ package forNowCoder;
 
 import java.util.*;
 
-public class Solution {
+public class Test {
     public ArrayList<String> Permutation(String str) {
         ArrayList<String> res = new ArrayList<>();
         char[] chars = str.toCharArray();
