@@ -16,6 +16,7 @@ public class Solution {
             num[i] = i;
         function(num, 0, list, tmp);
 
+        System.out.println("---");
         for (int i = 0; i < tmp.size(); i++) {
             char[] tmp2 = new char[len];
             int[] tmp3 = tmp.get(i);
