@@ -10,6 +10,8 @@ public class Solution {
         int tmp = 0;
         for (int i = 0; i < array.length; i++) {
             tmp = tmp + array[i];
+            System.out.println(min);
+            System.out.println(tmp);
             if (tmp < min) {
                 min = tmp;
                 minNum1 = i;
@@ -25,6 +27,10 @@ public class Solution {
             }
         }
         int re = 0;
+
+        // System.out.println(minNum1);
+        // System.out.println(minNum2);
+
         for (int i = minNum1 + 1; i < minNum2; i++)
             re = re + array[i];
         return re;
