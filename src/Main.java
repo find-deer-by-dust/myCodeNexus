@@ -5,7 +5,7 @@ import java.util.Comparator;
 
 public class Main {
 	public static void main(String[] args) {
-		int test = 1000000000;
+		int test = 9;
 		Solution s = new Solution();
 		System.out.println(s.findNthDigit(test));
 		Test t = new Test();

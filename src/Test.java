@@ -17,10 +17,12 @@ public class Test {
             sum = 9 * start * digit;
         }
         // 定位n在哪个数字上
+        System.out.println(start);
+
         String num = "" + (start + (n - 1) / digit);
-        System.out.println(num);
         // 定位n在数字的哪一位上
         int index = (n - 1) % digit;
+        System.out.println(num);
         return (int) (num.charAt(index)) - (int) ('0');
     }
 }
