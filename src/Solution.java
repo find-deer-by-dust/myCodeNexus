@@ -1,38 +1,30 @@
+import java.util.*;
+
 public class Solution {
-    public int FindGreatestSumOfSubArray(int[] array) {
-        if (array == null)
-            return 0;
-        if (array.length == 0)
-            return 0;
-        int min = 0;
-        int minNum1 = -1;
-        int minNum2 = array.length;
-        int tmp = 0;
-        for (int i = 0; i < array.length; i++) {
-            tmp = tmp + array[i];
-            System.out.println(min);
-            System.out.println(tmp);
-            if (tmp < min) {
-                min = tmp;
-                minNum1 = i;
-            }
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
+     * 
+     * @param n int整型
+     * @return int整型
+     */
+    public int findNthDigit(int n) {
+        int digits = 1;
+        int startNum = 0;
+        int totalNum = 10;
+        while (n > totalNum) {
+            n = n - totalNum;
+            startNum = pow(digits);
+            digits++;
+            totalNum = 9 * pow(digits - 1);
         }
-        min = 0;
-        tmp = 0;
-        for (int i = array.length - 1; i >= 0; i--) {
-            tmp = tmp + array[i];
-            if (tmp < min) {
-                min = tmp;
-                minNum2 = i;
-            }
-        }
-        int re = 0;
 
-        // System.out.println(minNum1);
-        // System.out.println(minNum2);
+        return 1;
+    }
 
-        for (int i = minNum1 + 1; i < minNum2; i++)
-            re = re + array[i];
-        return re;
+    int pow(int n) {
+        if (n == 0)
+            return 1;
+        return 10 * pow(n - 1);
     }
 }

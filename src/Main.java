@@ -5,9 +5,11 @@ import java.util.Comparator;
 
 public class Main {
 	public static void main(String[] args) {
+		int test = 1000000000;
 		Solution s = new Solution();
-		int[] a = { 1, 2, 3, -10 };
-		System.out.println(s.FindGreatestSumOfSubArray(a));
+		System.out.println(s.findNthDigit(test));
+		Test t = new Test();
+		System.out.println(t.findNthDigit(test));
 	}
 
 }
