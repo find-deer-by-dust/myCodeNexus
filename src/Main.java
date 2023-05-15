@@ -5,11 +5,10 @@ import java.util.Comparator;
 
 public class Main {
 	public static void main(String[] args) {
-		int test = 9;
 		Solution s = new Solution();
-		System.out.println(s.findNthDigit(test));
 		Test t = new Test();
-		System.out.println(t.findNthDigit(test));
+		int[] a = { 3, 32, 321 };
+		System.out.println(s.PrintMinNumber(a));
 	}
 
 }
