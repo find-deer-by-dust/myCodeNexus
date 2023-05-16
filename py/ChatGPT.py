@@ -13,7 +13,7 @@ class ChatGPT():
     def reply(self, userSay):
         import openai
         import time
-        timeStart = time.perf_counter()
+        # timeStart = time.perf_counter()
         openai.api_key = key
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
@@ -25,8 +25,9 @@ class ChatGPT():
         )
         chatgptSay = self.chatgptSay + \
             response['choices'][0]['message']['content']
-        timeEnd = time.perf_counter()
-        return chatgptSay + '\n\t\t--耗时 ' + str(round(timeEnd - timeStart, 3)) + 's'
+        # timeEnd = time.perf_counter()
+        # return chatgptSay + '\n\t\t--耗时 ' + str(round(timeEnd - timeStart, 3)) + 's'
+        return chatgptSay+'\n'
 
 
 class ChatGPTCompression(ChatGPT):
