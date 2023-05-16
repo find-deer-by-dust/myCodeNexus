@@ -24,6 +24,7 @@ while(True):
         
         subject="每日60秒新闻 "+tmp['data']['date']
         for user in users:
+            print("have sent email to " + user)
             separator='\n------我是分割线------\n'
             server.send_mail(user, {'subject': subject, 'content_text': "ChatGPT的看法:\n"+botSay+separator+"\n原新闻:\n"+content_text})
         
