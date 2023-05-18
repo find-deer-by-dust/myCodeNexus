@@ -8,7 +8,7 @@ public class Main {
 		Solution s = new Solution();
 		Test t = new Test();
 		int[] a = { 3, 32, 321 };
-		System.out.println(s.PrintMinNumber(a));
+		System.out.println();
 	}
 
 }
