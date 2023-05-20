@@ -7,8 +7,8 @@ public class Main {
 	public static void main(String[] args) {
 		Solution s = new Solution();
 		Test t = new Test();
-		int[] a = { 3, 32, 321 };
-		System.out.println();
+		int[] a = { 2, 5, 20 };
+		System.out.println(s.minCostClimbingStairs(a));
 	}
 
 }

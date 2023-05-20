@@ -2,31 +2,23 @@ import java.util.*;
 
 public class Solution {
     /**
-     * 解码
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
      * 
-     * @param nums string字符串 数字串
+     * @param cost int整型一维数组
      * @return int整型
      */
-    public int solve(String nums) {
-        // write code here
-        return function(nums, 0);
-    }
+    int[] tmp;
 
-    int function(String nums, int a) {
-        int re = 0;
-        if (a >= nums.length())
-            return 1;
-        if (nums.charAt(a) != '0') {
-            re = re + function(nums, a + 1);
-            if (a + 1 < nums.length()) {
-                String tmp = nums.charAt(a) + "" + nums.charAt(a + 1);
-                if (new Integer(tmp) >= 1 && new Integer(tmp) <= 26) {
-                    re = re + function(nums, a + 2);
-                }
-            }
-
+    public int minCostClimbingStairs(int[] cost) {
+        tmp = new int[cost.length + 1];
+        tmp[0] = 0;
+        tmp[1] = 0;
+        for (int i = 2; i < tmp.length; i++) {
+            tmp[i] = Math.min((tmp[i - 1] + cost[i - 1]), (tmp[i - 2] + cost[i - 2]));
         }
 
-        return re;
+        return tmp[tmp.length - 1];
+        // write code here
     }
 }
