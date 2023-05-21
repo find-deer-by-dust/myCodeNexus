@@ -5,7 +5,7 @@ import time
 def doCommand(command):
     try:
         process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
-        output, error = process.communicate(timeout=60*10)
+        output, error = process.communicate(timeout=60*30)
         output = output.decode("utf-8")
         time.sleep(10)
         process.terminate()
