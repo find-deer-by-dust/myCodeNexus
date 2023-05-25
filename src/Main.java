@@ -8,7 +8,7 @@ public class Main {
 		Solution s = new Solution();
 		Test t = new Test();
 		int[] a = { 2, 5, 20 };
-		System.out.println(s.minCostClimbingStairs(a));
+		// System.out.println(s.GetUglyNumber_Solution(8));
 	}
 
 }
