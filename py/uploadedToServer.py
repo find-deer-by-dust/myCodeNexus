@@ -94,6 +94,8 @@ if (strLocalFiles != strServerFiles):
 
 f.write("--------\n")
 f.close()
+doCommand(
+    r'copy "D:\资源\java\forNowCoder\py\uploadedToServer.log" "E:\shareWithPhone\" ')
 
 # time.sleep(60*10)
 
