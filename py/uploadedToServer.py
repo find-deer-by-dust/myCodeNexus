@@ -46,54 +46,56 @@ def getServerFiles():
 
 
 getServerFiles()
-while (True):
-    f = open("D:/资源/java/forNowCoder/py/uploadedToServer.log", "a+")
-    f.write(str(time.strftime('%D %H:%M:%S', time.localtime())))
-    f.write("\n")
+# while (True):
 
-    localFiles = getLocalFiles()
-    f.write(str(localFiles))
-    f.write("\n")
+f = open("D:/资源/java/forNowCoder/py/uploadedToServer.log", "a+")
+f.write(str(time.strftime('%D %H:%M:%S', time.localtime())))
+f.write("\n")
 
-    serverFiles = getServerFiles()
-    f.write(str(serverFiles))
-    f.write("\n")
+localFiles = getLocalFiles()
+f.write(str(localFiles))
+f.write("\n")
 
-    strLocalFiles = "".join(localFiles)
-    strServerFiles = "".join(serverFiles)
+serverFiles = getServerFiles()
+f.write(str(serverFiles))
+f.write("\n")
 
-    if (strLocalFiles != strServerFiles):
-        needRm = []
-        needScp = []
-        rmCmd = 'ssh -p 15328 root@165.3.2.57 "rm -rf '
-        scpCmd = "scp -P 15328 -r "
+strLocalFiles = "".join(localFiles)
+strServerFiles = "".join(serverFiles)
 
-        for i in serverFiles:
-            if i not in localFiles:
-                needRm.append("/share/"+i)
-        for i in localFiles:
-            if i not in serverFiles:
-                needScp.append("E:/shareWithPhone/"+i)
-        for i in needRm:
-            rmCmd = rmCmd+" '"+i+"' "
-        rmCmd = rmCmd+'"'
-        for i in needScp:
-            scpCmd = scpCmd+' "'+i+'" '
-        scpCmd = scpCmd+" root@165.3.2.57:/share"
+if (strLocalFiles != strServerFiles):
+    needRm = []
+    needScp = []
+    rmCmd = 'ssh -p 15328 root@165.3.2.57 "rm -rf '
+    scpCmd = "scp -P 15328 -r "
 
-        if len(needRm) != 0:
-            doCommand(rmCmd)
-            f.write(rmCmd)
-            f.write("\n")
+    for i in serverFiles:
+        if i not in localFiles:
+            needRm.append("/share/"+i)
+    for i in localFiles:
+        if i not in serverFiles:
+            needScp.append("E:/shareWithPhone/"+i)
+    for i in needRm:
+        rmCmd = rmCmd+" '"+i+"' "
+    rmCmd = rmCmd+'"'
+    for i in needScp:
+        scpCmd = scpCmd+' "'+i+'" '
+    scpCmd = scpCmd+" root@165.3.2.57:/share"
 
-        if len(needScp) != 0:
-            doCommand(scpCmd)
-            f.write(scpCmd)
-            f.write("\n")
+    if len(needRm) != 0:
+        doCommand(rmCmd)
+        f.write(rmCmd)
+        f.write("\n")
 
-    f.write("--------\n")
-    f.close()
-    time.sleep(60*10)
+    if len(needScp) != 0:
+        doCommand(scpCmd)
+        f.write(scpCmd)
+        f.write("\n")
+
+f.write("--------\n")
+f.close()
+
+# time.sleep(60*10)
 
 
 # mkdir /data/data/com.termux/files/home/storage/downloads/share

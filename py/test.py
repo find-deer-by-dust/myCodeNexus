@@ -1,22 +1,54 @@
-import numpy as np
 
-tab = [[78, 521, 602, 2863],
-       [144, -600, -521, 2245],
-       [95, -457, 468, -1283],
-       [69, 596, 695, 1054],
-       [190, 527, 691, 2051],
-       [101, 403, 470, 2487],
-       [146, 413, 435, 2571], ]
+# 最大连续登录天数
 
-for i in range(len(tab[0])):
-    minNum = tab[0][i]
-    maxNum = tab[0][i]
-    for j in range(len(tab)):
-        if tab[j][i] > maxNum:
-            maxNum = tab[j][i]
-        if tab[j][i] < minNum:
-            minNum = tab[j][i]
-    for j in range(len(tab)):
-        tab[j][i] = (tab[j][i] - minNum) / (maxNum - minNum) * (1 - 0) + 0
+# 现有用户登录数据表login data,字段为user id+login dt,求每个用户的最大连续登录天数
 
-print(np.round(tab, 2))
+# user_id login_dt
+# 1001 2021-03-01
+# 1001 2021-03-10
+# 1001 2021-03-11
+# 1001 2021-03-12
+# 1002 2021-03-01
+# 1002 2021-03-02
+# 1002 2021-03-05
+# 1003 2021-03-01
+import time
+import datetime
+list=[
+    [1001, "2021-03-01"],
+    [1001, "2021-03-10"],
+    [1001, "2021-03-11"],
+    [1001, "2021-03-12"],
+    [1002 ,"2021-03-01"],
+    [1002, "2021-03-02"],
+    [1002, "2021-03-05"],
+    [1003 ,"2021-03-01"],
+]
+
+users=set()
+for i in list:
+    users.add(i[0])
+for user in users:
+    print(user)
+    datas=[]
+    for j in list:
+        if j[0]==user:
+            datas.append(j[1])
+    datas=sorted(datas)
+    tmp=1
+    maxNum=1
+    for i in range(len(datas)):
+        if i+1<len(datas):
+            d1 = datetime.datetime.strptime(datas[i], '%Y-%m-%d')
+            d2=datetime.datetime.strptime(datas[i+1], '%Y-%m-%d')
+            # print(d2-d1)
+            # print(str(d2-d1)[0]=="1")
+            if str(d2-d1)[0]=="1":
+                tmp=tmp+1
+                maxNum=max(tmp,maxNum)
+            else :
+                maxNum=max(tmp,maxNum)
+                tmp=1
+            maxNum=max(tmp,maxNum)
+            # print("tmp:"+str(tmp))
+    print(maxNum)
