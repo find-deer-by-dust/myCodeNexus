@@ -9,9 +9,10 @@ from openpyxl import load_workbook
 from functions import *
 
 maxTime = 180
+tmpFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/doc/tmp.xlsx"
+imFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/doc/im.xlsx"
 
-    
-table = pd.read_excel(io=r'C:\Users\Administrator\Desktop\py\doc/tmp.xlsx')
+table = pd.read_excel(io=tmpFN)
 table = np.array(table)
 table = table.tolist()
 i = 0
@@ -37,5 +38,7 @@ for i in range(len(table)):
 # print(table[0][0])
 df = pd.DataFrame(table)
 # print(df)
-df.to_excel("./doc/im.xlsx", index=False)
-function.adjustFormat("./doc/im.xlsx")
+df = df.sort_values(by=0,ascending=False)
+df.to_excel(imFN, index=False)
+
+function.adjustFormat(imFN)

@@ -8,8 +8,12 @@ from openpyxl import load_workbook
 
 from functions import *
 
+tmpFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/doc/tmp.xlsx"
+dictFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/doc/dict.xlsx"
+sortFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/doc/sort.xlsx"
+
 # 第一行需要属性栏
-table = pd.read_excel(io=r'C:\Users\Administrator\Desktop\py\doc/tmp.xlsx')
+table = pd.read_excel(io=tmpFN)
 table = np.array(table)
 table = table.tolist()
 length = len(table)
@@ -43,6 +47,7 @@ for i in range(len(tableList)):
         if (j[0]=='pad' or j[0]=='Mac OS')and j[2]==tableList[i][0]:
             mac=mac+1
     macsum=macsum+mac
+    tmp.append(i+1)
     tmp.append(tableList[i][1]-mac)
     tmp.append(mac)
     tmp.append(tableList[i][1]/length)
@@ -50,8 +55,8 @@ for i in range(len(tableList)):
     tableList[i] = tmp
 
 df = pd.DataFrame(tableList)
-df = df.sort_values(by=2,ascending=False)
-df.to_excel("./doc/sort.xlsx", index=False)
+df = df.sort_values(by=3,ascending=False)
+df.to_excel(sortFN, index=False)
 
 print("sum:",length)
 print("pc:",length-macsum)
@@ -68,11 +73,10 @@ for i in range(len(table)):
     table[i][1] = tableDic[table[i][2]]
 
 df = pd.DataFrame(table)
-df.to_excel("./doc/dict.xlsx", index=False)
+df.to_excel(dictFN, index=False)
 
-function.adjustFormat("./doc/dict.xlsx")
-function.adjustFormat("./doc/sort.xlsx")
-
+function.adjustFormat(dictFN)
+function.adjustFormat(sortFN)
 
 
 
