@@ -1,3 +1,3 @@
 @ECHO OFF
 %1 start mshta vbscript:createobject("wscript.shell").run("""%~0"" ::",0)(window.close)&&exit
-start /b python D:/资源/java/forNowCoder/py/uploadedToServer.py
+start /b python D:\资源\java\forNowCoder\py\tools\uploadedToServer.py

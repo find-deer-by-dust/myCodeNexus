@@ -13,7 +13,7 @@ def doCommand(command):
         return output
     except Exception as e:
         process.kill()
-        f = open("D:/资源/java/forNowCoder/py/uploadedToServer.log", "a+")
+        f = open(filePath+"uploadedToServer.log", "a+")
         f.write(str(e)+" "+str(e.__traceback__.tb_lineno))
         f.write("\n")
         f.close()
@@ -45,10 +45,11 @@ def getServerFiles():
         return []
 
 
+filePath="D:/资源/java/forNowCoder/py/tools/"
 getServerFiles()
 # while (True):
 
-f = open("D:/资源/java/forNowCoder/py/uploadedToServer.log", "a+")
+f = open(filePath+"uploadedToServer.log", "a+")
 f.write(str(time.strftime('%D %H:%M:%S', time.localtime())))
 f.write("\n")
 
@@ -95,7 +96,7 @@ if (strLocalFiles != strServerFiles):
 f.write("--------\n")
 f.close()
 doCommand(
-    r'copy "D:\资源\java\forNowCoder\py\uploadedToServer.log" "E:\shareWithPhone\" ')
+    'copy "'+filePath+'uploadedToServer.log" "E:/shareWithPhone/" ')
 
 # time.sleep(60*10)
 
