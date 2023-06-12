@@ -20,7 +20,7 @@ def wifiConnect(pwd):
         # 创建WiFi连接文件
         profile = pywifi.Profile()
         # 要连接WiFi的名称
-        profile.ssid = "Nokia 8"
+        profile.ssid = "ChinaNet-PERZ"
         # 网卡的开放状态
         profile.auth = const.AUTH_ALG_OPEN
         # wifi加密算法,一般wifi加密算法为wps
