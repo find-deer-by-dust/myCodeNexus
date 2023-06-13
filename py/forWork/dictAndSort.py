@@ -47,7 +47,7 @@ for i in range(len(tableList)):
         if (j[0]=='pad' or j[0]=='Mac OS')and j[2]==tableList[i][0]:
             mac=mac+1
     macsum=macsum+mac
-    tmp.append(i+1)
+    # tmp.append(i+1)
     tmp.append(tableList[i][1]-mac)
     tmp.append(mac)
     tmp.append(tableList[i][1]/length)
@@ -55,7 +55,8 @@ for i in range(len(tableList)):
     tableList[i] = tmp
 
 df = pd.DataFrame(tableList)
-df = df.sort_values(by=3,ascending=False)
+df = df.sort_values(by=2,ascending=False)
+df.insert(0, 'a', list(range(1,len(tableList)+1)))
 df.to_excel(sortFN, index=False)
 
 print("sum:",length)
