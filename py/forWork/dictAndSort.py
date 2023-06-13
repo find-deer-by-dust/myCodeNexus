@@ -30,15 +30,17 @@ for i in table:
         tableDic[i[2]] = tableDic[i[2]] + 1
 
 tableList = list(zip(list(tableDic), list(tableDic.values())))
-tableList.append(["其他", 0])
-i = 0
-while i < len(tableList)-1:
-    if tableList[i][1] == 1:
-        tableList[len(tableList)-1][1] = tableList[len(tableList)-1][1]+1
-        tableList.pop(i)
-        i = i-1
 
-    i = i+1
+
+i = 0
+# tableList.append(["其他", 0])
+# while i < len(tableList)-1:
+#     if tableList[i][1] == 1:
+#         tableList[len(tableList)-1][1] = tableList[len(tableList)-1][1]+1
+#         tableList.pop(i)
+#         i = i-1
+#     i = i+1
+
 macsum=0
 for i in range(len(tableList)):
     tmp = list()
