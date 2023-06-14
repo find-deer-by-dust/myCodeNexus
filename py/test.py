@@ -1,4 +1,4 @@
-from tools.ChatGPT import ChatGPT
+from tools.ChatGPT import *
 
-bot = ChatGPT()
-print(bot.reply("hi"))
+bot = CatChatGPTBot()
+bot.start()

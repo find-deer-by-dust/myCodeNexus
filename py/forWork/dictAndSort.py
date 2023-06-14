@@ -20,13 +20,13 @@ length = len(table)
 tableDic = dict()
 
 for i in range(len(table)):
-    table[i][2] = table[i][2].replace('\n', '').replace(' ', '')
+    table[i][3] = table[i][3].replace('\n', '').replace(' ', '')
 
 for i in table:
-    if i[2] not in tableDic:
-        tableDic[i[2]] = 1
+    if i[3] not in tableDic:
+        tableDic[i[3]] = 1
     else:
-        tableDic[i[2]] = tableDic[i[2]] + 1
+        tableDic[i[3]] = tableDic[i[3]] + 1
 
 tableList = list(zip(list(tableDic), list(tableDic.values())))
 
@@ -45,11 +45,11 @@ for i in range(len(tableList)):
     tmp = list()
     mac=0
     for j in table:
-        if j[0]=='Mac OS':
-            j[0]='pad'
-        if j[0]=='Windows':
-            j[0]='电脑'
-        if j[0]=='Mac OS' and j[2]==tableList[i][0]:
+        if j[1]=='Mac OS':
+            j[1]='pad'
+        if j[1]=='Windows':
+            j[1]='电脑'
+        if j[1]=='Mac OS' and j[3]==tableList[i][0]:
             mac=mac+1
     macsum=macsum+mac
     # tmp.append(i+1)
@@ -72,11 +72,11 @@ print("mac:",macsum)
 tableDic = dict()
 tag = 0
 for i in table:
-    if i[2] not in tableDic:
-        tableDic[i[2]] = tag
+    if i[3] not in tableDic:
+        tableDic[i[3]] = tag
         tag = tag+1
 for i in range(len(table)):
-    table[i][1] = tableDic[table[i][2]]
+    table[i][2] = tableDic[table[i][3]]
 
 df = pd.DataFrame(table)
 df.to_excel(dictFN, index=False)
