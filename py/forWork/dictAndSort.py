@@ -46,7 +46,11 @@ for i in range(len(tableList)):
     tmp = list()
     mac=0
     for j in table:
-        if (j[0]=='pad' or j[0]=='Mac OS')and j[2]==tableList[i][0]:
+        if j[0]=='Mac OS':
+            j[0]='pad'
+        if j[0]=='Windows':
+            j[0]='电脑'
+        if j[0]=='Mac OS' and j[2]==tableList[i][0]:
             mac=mac+1
     macsum=macsum+mac
     # tmp.append(i+1)
@@ -78,8 +82,10 @@ for i in range(len(table)):
 df = pd.DataFrame(table)
 df.to_excel(dictFN, index=False)
 
-function.adjustFormat(dictFN)
-function.adjustFormat(sortFN)
+function.toPercent(sortFN)
+function.adjustFormat(dictFN,1)
+function.adjustFormat(sortFN,1)
+
 
 
 
