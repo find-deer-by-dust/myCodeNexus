@@ -41,4 +41,4 @@ df = pd.DataFrame(table)
 df = df.sort_values(by=0,ascending=False)
 df.to_excel(imFN, index=False)
 
-function.adjustFormat(imFN)
+function.adjustFormat(imFN,0)
