@@ -18,7 +18,6 @@ table = np.array(table)
 table = table.tolist()
 length = len(table)
 tableDic = dict()
-tag = 0
 
 for i in range(len(table)):
     table[i][2] = table[i][2].replace('\n', '').replace(' ', '')
