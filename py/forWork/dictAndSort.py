@@ -31,7 +31,7 @@ for i in table:
 tableList = list(zip(list(tableDic), list(tableDic.values())))
 
 
-i = 0
+# i = 0
 # tableList.append(["其他", 0])
 # while i < len(tableList)-1:
 #     if tableList[i][1] == 1:
