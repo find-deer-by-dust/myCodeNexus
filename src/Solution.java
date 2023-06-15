@@ -1,51 +1,26 @@
-// import java.util.*;
+import java.util.*;
 
 public class Solution {
-    public int InversePairs(int[] x) {
-        int l = x.length;
-
-        int a = function1(x, 0, l);
-
-        return a;
-    }
-
-    int function1(int[] x, int a, int b) {
-        int tmp = 0;
-        int i;
-        if (a < b - 1) {
-            tmp += function1(x, a, (a + b) / 2);
-            tmp = tmp % 1000000007;
-            tmp += function1(x, (a + b) / 2, b);
-            tmp = tmp % 1000000007;
-            for (i = a; i < (a + b) / 2; i++) {
-
-                for (int j = (a + b) / 2; j < b; j++) {
-                    if (x[i] > x[j]) {
-                        tmp++;
-                    } else {
-                        break;
-                    }
-                }
-            }
-            i = 0;
-            while ((a + b) / 2 - i >= a) {
-                swap(x, (a + b) / 2 - i, b);
-                i++;
-            }
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
+     * 
+     * @param array int整型一维数组
+     * @return int整型一维数组
+     */
+    public int[] FindNumsAppearOnce(int[] array) {
+        // write code here
+        int[] re = new int[2];
+        int[] tmp = new int[1000001];
+        for (int i = 0; i < array.length; i++) {
+            tmp[array[i]] += 1;
         }
-        return tmp % 1000000007;
-    }
-
-    void swap(int[] x, int a, int b) {
-        int tmp;
-        if (a < b) {
-            for (int i = a; i < b - 1; i++) {
-                if (x[i] > x[i + 1]) {
-                    tmp = x[i];
-                    x[i] = x[i + 1];
-                    x[i + 1] = tmp;
-                }
-            }
+        for (int i = 0; i < 1000001; i++) {
+            if (tmp[i] == 1 && re[0] == 0)
+                re[0] = i;
+            else if (tmp[i] == 1 && re[1] == 0)
+                re[1] = i;
         }
+        return re;
     }
 }
