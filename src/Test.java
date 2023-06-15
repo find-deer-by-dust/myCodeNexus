@@ -1,37 +1,37 @@
 // import java.util.*;
 
 public class Test {
-    public int[] test(int[] x) {
+    public int test(int[] x) {
         int l = x.length;
-        int[] a = x.clone();
-        int[] b = x.clone();
-        long stime, etime;
 
-        stime = System.currentTimeMillis();
-        a = function1(a, 0, l);
-        etime = System.currentTimeMillis();
-        System.out.printf("1执行时长：%d 毫秒.\n", (etime - stime));
-        System.out.println(a[0] + "  " + a[a.length - 1]);
+        int a = function1(x, 0, l);
 
-        stime = System.currentTimeMillis();
-        b = function2(b);
-        etime = System.currentTimeMillis();
-        System.out.printf("2执行时长：%d 毫秒.\n", (etime - stime));
-        System.out.println(b[0] + "  " + b[b.length - 1]);
-        return x;
+        return a;
     }
 
-    int[] function1(int[] x, int a, int b) {
-        if (a != b) {
-            function1(x, a, (a + b) / 2);
-            function1(x, (a + b) / 2 + 1, b);
-            int i = 0;
+    int function1(int[] x, int a, int b) {
+        int tmp = 0;
+        int i;
+        if (a < b - 1) {
+            tmp += function1(x, a, (a + b) / 2);
+            tmp += function1(x, (a + b) / 2, b);
+            for (i = a; i < (a + b) / 2; i++) {
+
+                for (int j = (a + b) / 2; j < b; j++) {
+                    if (x[i] > x[j]) {
+                        tmp++;
+                    } else {
+                        break;
+                    }
+                }
+            }
+            i = 0;
             while ((a + b) / 2 - i >= a) {
                 swap(x, (a + b) / 2 - i, b);
                 i++;
             }
         }
-        return x;
+        return tmp % 1000000007;
     }
 
     void swap(int[] x, int a, int b) {

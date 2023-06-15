@@ -1,36 +1,48 @@
+// import java.util.*;
+
 public class Solution {
-    public int InversePairs(int[] array) {
-        if (array == null || array.length == 0) {
-            return (int) (res % 1000000007);
-        }
-        int n = array.length;
-        temp = new int[n];
-        for (int i = 1; i < n; i = i + i) {
-            for (int j = 0; j < n - i; j += i + i) {
-                work(array, j, j + i - 1, Math.min(j + i + i - 1, n - 1));
-            }
-        }
-        return (int) (res % 1000000007);
+    public int InversePairs(int[] x) {
+        int l = x.length;
+
+        int a = function1(x, 0, l);
+
+        return a;
     }
 
-    private int[] temp;
-    private long res = 0;
+    int function1(int[] x, int a, int b) {
+        int tmp = 0;
+        int i;
+        if (a < b - 1) {
+            tmp += function1(x, a, (a + b) / 2);
+            tmp += function1(x, (a + b) / 2, b);
+            for (i = a; i < (a + b) / 2; i++) {
 
-    private void work(int[] array, int l, int m, int h) {
-        int i = l, j = m + 1;
-        for (int k = l; k <= h; k++) {
-            temp[k] = array[k];
+                for (int j = (a + b) / 2; j < b; j++) {
+                    if (x[i] > x[j]) {
+                        tmp++;
+                    } else {
+                        break;
+                    }
+                }
+            }
+            i = 0;
+            while ((a + b) / 2 - i >= a) {
+                swap(x, (a + b) / 2 - i, b);
+                i++;
+            }
         }
-        for (int k = l; k <= h; k++) {
-            if (i > m) {
-                array[k] = temp[j++];
-            } else if (j > h) {
-                array[k] = temp[i++];
-            } else if (temp[j] < temp[i]) {
-                array[k] = temp[j++];
-                res += 1 + m - i;
-            } else {
-                array[k] = temp[i++];
+        return tmp % 1000000007;
+    }
+
+    void swap(int[] x, int a, int b) {
+        int tmp;
+        if (a < b) {
+            for (int i = a; i < b - 1; i++) {
+                if (x[i] > x[i + 1]) {
+                    tmp = x[i];
+                    x[i] = x[i + 1];
+                    x[i + 1] = tmp;
+                }
             }
         }
     }
