@@ -1,58 +1,90 @@
-import pygame
-import sys
-import random
+import pandas
+import pandas as pd
+import numpy as np
+import time
+import datetime
+from openpyxl.styles import Font
+from openpyxl import load_workbook
 
-#  初始化
-pygame.init()
-screen = pygame.display.set_mode((900, 700))
-clock = pygame.time.Clock()
-FPS = 60
+from functions import *
 
-#  加载图片
-bg = pygame.image.load('pic/bg.png')
+tmpFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/doc/tmp.xlsx"
+dictFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/doc/dict.xlsx"
+sortFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/doc/sort.xlsx"
 
-#  金币类
-class  Gold:
-    def __init__(self):
-        self.image = pygame.image.load('pic/gold.png')
-        self.rect = self.image.get_rect()
-        self.rect.x = random.randint(0, 860)
-        self.rect.y = random.randint(700, 900)
+# 第一行需要属性栏
+table = pd.read_excel(io=tmpFN)
+table = np.array(table)
+table = table.tolist()
+length = len(table)
+tableDic = dict()
 
-    def draw(self):
-        screen.blit(self.image, self.rect)
-        
-    #——————————————————————————————————————————————————————
-    def move(self):
-        self.rect.y -= 1
-        #【你需要在这里判断金币是否移出边界】
-        if self.rect.y <= 0:
-            self.rect.x = random.randint(0, 860)
-            self.rect.y = random.randint(700, 900)            
+for i in range(len(table)):
+    table[i][2] = table[i][2].replace('\n', '').replace(' ', '')
 
-    #------------------------------------------------------
+for i in table:
+    if i[2] not in tableDic:
+        tableDic[i[2]] = 1
+    else:
+        tableDic[i[2]] = tableDic[i[2]] + 1
 
-# 生成金币对象
-gold1 = Gold()
-gold2 = Gold()
+tableList = list(zip(list(tableDic), list(tableDic.values())))
 
 
-#  主循环模块
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            sys.exit()
-    # 绘制背景
-    screen.blit(bg, (0, 0))
-    
-    # 绘制金币
-    gold1.draw()
-    gold2.draw()
+i = 0
+# tableList.append(["其他", 0])
+# while i < len(tableList)-1:
+#     if tableList[i][1] == 1:
+#         tableList[len(tableList)-1][1] = tableList[len(tableList)-1][1]+1
+#         tableList.pop(i)
+#         i = i-1
+#     i = i+1
 
-    # 金币移动
-    gold1.move()
-    gold2.move()
+macsum=0
+for i in range(len(tableList)):
+    tmp = list()
+    mac=0
+    for j in table:
+        if j[0]=='Mac OS':
+            j[0]='pad'
+        if j[0]=='Windows':
+            j[0]='电脑'
+        if j[0]=='Mac OS' and j[2]==tableList[i][0]:
+            mac=mac+1
+    macsum=macsum+mac
+    # tmp.append(i+1)
+    tmp.append(tableList[i][1]-mac)
+    tmp.append(mac)
+    tmp.append(tableList[i][1]/length)
+    tmp.append(tableList[i][0])
+    tableList[i] = tmp
 
-    pygame.display.update()
-    clock.tick(FPS)
+df = pd.DataFrame(tableList)
+df = df.sort_values(by=2,ascending=False)
+df.insert(0, 'a', list(range(1,len(tableList)+1)))
+df.to_excel(sortFN, index=False)
+
+print("sum:",length)
+print("pc:",length-macsum)
+print("mac:",macsum)
+
+
+tableDic = dict()
+tag = 0
+for i in table:
+    if i[2] not in tableDic:
+        tableDic[i[2]] = tag
+        tag = tag+1
+for i in range(len(table)):
+    table[i][1] = tableDic[table[i][2]]
+
+df = pd.DataFrame(table)
+df.to_excel(dictFN, index=False)
+
+function.toPercent(sortFN)
+function.adjustFormat(dictFN,1)
+function.adjustFormat(sortFN,1)
+
+
+
 

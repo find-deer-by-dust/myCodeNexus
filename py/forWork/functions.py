@@ -9,7 +9,7 @@ from openpyxl import Workbook,load_workbook
 from openpyxl.styles import *
 
 class function:
-    def adjustFormat(fl):
+    def adjustFormat(fl,tag):
         workbook = load_workbook(filename=fl)
         sheet = workbook.active
         s="QAZWSXEDCRFVTGBYHNUJMIOPKL"
@@ -21,10 +21,27 @@ class function:
         # for i in range(1,max_rows+1):
         #     for j in range(1,max_columns+1):
         #         c=sheet.cell(i, j)
+                if tag==1:
+                     align=Alignment(horizontal='left',vertical='center',wrapText=True)
+                else:
+                    align=Alignment(horizontal='left',vertical='center')
                 font = Font(name="微软雅黑",size=10)    
-                align=Alignment(horizontal='left',vertical='center')
                 border=Border(left=Side(style='thin'),  bottom=Side(style='thin'), right=Side(style='thin'),top=Side(style='thin'))
+                
                 c.font = font
                 c.border = border
                 c.alignment = align
+        workbook.save(filename=fl)
+
+    def toPercent(fl):
+        workbook = load_workbook(filename=fl)
+        sheet = workbook.active
+        tmp=sheet['D']
+        for i in tmp:
+            if i.value!=2:
+                data= i.value
+                data = float('%.4f' % (float(data)))
+                i.value = data
+                i.number_format = '0.00%'
+
         workbook.save(filename=fl)
