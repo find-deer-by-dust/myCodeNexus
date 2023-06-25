@@ -8,9 +8,10 @@ from openpyxl import load_workbook
 
 from functions import *
 
-tmpFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/doc/tmp.xlsx"
-dictFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/doc/dict.xlsx"
-sortFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/doc/sort.xlsx"
+basicFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/"
+tmpFN= basicFN+"doc/tmp.xlsx"
+dictFN=basicFN+"doc/dic.xlsx"
+sortFN=basicFN+"doc/sort.xlsx"
 
 # 第一行需要属性栏
 table = pd.read_excel(io=tmpFN)

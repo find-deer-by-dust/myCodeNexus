@@ -5,86 +5,38 @@ import time
 import datetime
 from openpyxl.styles import Font
 from openpyxl import load_workbook
+import time
+import webbrowser
+from desktopmagic.screengrab_win32 import getRectAsImage
+from pymouse import *
 
 from functions import *
 
-tmpFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/doc/tmp.xlsx"
-dictFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/doc/dict.xlsx"
-sortFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/doc/sort.xlsx"
+basicFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/"
+tmpFN= basicFN+"doc/tmp.xlsx"
+dictFN=basicFN+"doc/dic.xlsx"
+sortFN=basicFN+"doc/sort.xlsx"
+pngPath=basicFN+"png/"
 
-# 第一行需要属性栏
 table = pd.read_excel(io=tmpFN)
 table = np.array(table)
 table = table.tolist()
 length = len(table)
-tableDic = dict()
-
-for i in range(len(table)):
-    table[i][2] = table[i][2].replace('\n', '').replace(' ', '')
+m = PyMouse() 
+j=0
 
 for i in table:
-    if i[2] not in tableDic:
-        tableDic[i[2]] = 1
-    else:
-        tableDic[i[2]] = tableDic[i[2]] + 1
-
-tableList = list(zip(list(tableDic), list(tableDic.values())))
-
-
-i = 0
-# tableList.append(["其他", 0])
-# while i < len(tableList)-1:
-#     if tableList[i][1] == 1:
-#         tableList[len(tableList)-1][1] = tableList[len(tableList)-1][1]+1
-#         tableList.pop(i)
-#         i = i-1
-#     i = i+1
-
-macsum=0
-for i in range(len(tableList)):
-    tmp = list()
-    mac=0
-    for j in table:
-        if j[0]=='Mac OS':
-            j[0]='pad'
-        if j[0]=='Windows':
-            j[0]='电脑'
-        if j[0]=='Mac OS' and j[2]==tableList[i][0]:
-            mac=mac+1
-    macsum=macsum+mac
-    # tmp.append(i+1)
-    tmp.append(tableList[i][1]-mac)
-    tmp.append(mac)
-    tmp.append(tableList[i][1]/length)
-    tmp.append(tableList[i][0])
-    tableList[i] = tmp
-
-df = pd.DataFrame(tableList)
-df = df.sort_values(by=2,ascending=False)
-df.insert(0, 'a', list(range(1,len(tableList)+1)))
-df.to_excel(sortFN, index=False)
-
-print("sum:",length)
-print("pc:",length-macsum)
-print("mac:",macsum)
-
-
-tableDic = dict()
-tag = 0
-for i in table:
-    if i[2] not in tableDic:
-        tableDic[i[2]] = tag
-        tag = tag+1
-for i in range(len(table)):
-    table[i][1] = tableDic[table[i][2]]
-
-df = pd.DataFrame(table)
-df.to_excel(dictFN, index=False)
-
-function.toPercent(sortFN)
-function.adjustFormat(dictFN,1)
-function.adjustFormat(sortFN,1)
+    fn=str(i[0])+'.png'
+    url=i[2]
+    webbrowser.open(url)
+    time.sleep(5)
+    m.click(3810, 422, 1, 1)
+    rect = getRectAsImage((2310,-600,4468,471))
+    rect.save(pngPath+fn, format='png')
+    break
 
 
 
-
+time.sleep(5)
+rect = getRectAsImage((1920,-917,4479,522))
+rect.save(pngPath+'test'+'.png', format='png')

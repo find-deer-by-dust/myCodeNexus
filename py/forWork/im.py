@@ -8,9 +8,9 @@ from openpyxl import load_workbook
 
 from functions import *
 
-
-tmpFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/doc/tmp.xlsx"
-imFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/doc/im.xlsx"
+basicFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/"
+tmpFN= basicFN+"doc/tmp.xlsx"
+imFN=basicFN+"doc/im.xlsx"
 
 table = pd.read_excel(io=tmpFN)
 table = np.array(table)

@@ -1,4 +1,10 @@
-from tools.ChatGPT import *
+from selenium import webdriver
+ 
 
-bot = CatChatGPTBot()
-bot.start()
+b = webdriver.Chrome()
+url = "https://www.baidu.com/"
+b.get(url)
+ 
+
+# 关闭当前标签页（第一页）
+# b.close()
