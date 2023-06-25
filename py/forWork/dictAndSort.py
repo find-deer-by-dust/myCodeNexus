@@ -9,7 +9,7 @@ from functions import *
 
 basicFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/"
 tmpFN= basicFN+"doc/tmp.xlsx"
-dictFN=basicFN+"doc/dic.xlsx"
+dictFN=basicFN+"doc/dict.xlsx"
 sortFN=basicFN+"doc/sort.xlsx"
 
 # 第一行需要属性栏
