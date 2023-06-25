@@ -45,10 +45,11 @@ for i in range(len(tableList)):
     tmp = list()
     mac=0
     for j in table:
-        if j[1]=='Mac OS' or str(j[1])=='2':
-            j[1]='pad'
-        if j[1]=='Windows' or str(j[1])=='1':
+        if j[1]=='Windows' or j[1]=='Mac OS' or j[1]=='电脑' or str(j[1])=='1':
             j[1]='电脑'
+        else :
+            j[1]='pad'
+
         if j[1]=='pad' and j[3]==tableList[i][0]:
             mac=mac+1
     macsum=macsum+mac
