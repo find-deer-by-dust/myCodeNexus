@@ -27,7 +27,7 @@ for i in range(len(table)):
     table[i].pop(3)
     table[i].pop(3)
 
-i=len(table)
+i=len(table)-1
 while i>-1:
     if table[i][0] not in tableSet:
         tableSet.add(table[i][0])
