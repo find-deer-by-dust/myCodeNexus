@@ -1,4 +1,3 @@
-import pandas
 import pandas as pd
 import numpy as np
 import time
@@ -8,9 +7,9 @@ from openpyxl import load_workbook
 
 from functions import *
 
-
-tmpFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/doc/tmp.xlsx"
-imFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/doc/im.xlsx"
+basicFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/"
+tmpFN= basicFN+"doc/tmp.xlsx"
+imFN=basicFN+"doc/im.xlsx"
 
 table = pd.read_excel(io=tmpFN)
 table = np.array(table)
@@ -27,14 +26,14 @@ for i in range(len(table)):
     table[i].pop(3)
     table[i].pop(3)
 
-i=0
-while i<len(table):
+i=len(table)-1
+while i>-1:
     if table[i][0] not in tableSet:
         tableSet.add(table[i][0])
     else:
         table.pop(i)
-        i=i-1
-    i=i+1
+        # i=i+1
+    i=i-1
 
 
 # print(table[0][0])

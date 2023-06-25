@@ -1,4 +1,3 @@
-import pandas
 import pandas as pd
 import numpy as np
 import time
@@ -8,9 +7,10 @@ from openpyxl import load_workbook
 
 from functions import *
 
-tmpFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/doc/tmp.xlsx"
-dictFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/doc/dict.xlsx"
-sortFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/doc/sort.xlsx"
+basicFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/"
+tmpFN= basicFN+"doc/tmp.xlsx"
+dictFN=basicFN+"doc/dict.xlsx"
+sortFN=basicFN+"doc/sort.xlsx"
 
 # 第一行需要属性栏
 table = pd.read_excel(io=tmpFN)
@@ -45,10 +45,11 @@ for i in range(len(tableList)):
     tmp = list()
     mac=0
     for j in table:
-        if j[1]=='Mac OS' or str(j[1])=='2':
-            j[1]='pad'
-        if j[1]=='Windows' or str(j[1])=='1':
+        if j[1]=='Windows' or j[1]=='Mac OS' or j[1]=='电脑' or str(j[1])=='1':
             j[1]='电脑'
+        else :
+            j[1]='pad'
+
         if j[1]=='pad' and j[3]==tableList[i][0]:
             mac=mac+1
     macsum=macsum+mac
