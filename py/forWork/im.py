@@ -33,7 +33,7 @@ while i>-1:
         tableSet.add(table[i][0])
     else:
         table.pop(i)
-        i=i+1
+        # i=i+1
     i=i-1
 
 
