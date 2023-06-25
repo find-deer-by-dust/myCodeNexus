@@ -27,14 +27,14 @@ for i in range(len(table)):
     table[i].pop(3)
     table[i].pop(3)
 
-i=0
-while i<len(table):
+i=len(table)
+while i>-1:
     if table[i][0] not in tableSet:
         tableSet.add(table[i][0])
     else:
         table.pop(i)
-        i=i-1
-    i=i+1
+        i=i+1
+    i=i-1
 
 
 # print(table[0][0])
