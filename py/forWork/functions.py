@@ -7,7 +7,7 @@ from openpyxl import load_workbook
 from openpyxl import Workbook,load_workbook
 from openpyxl.styles import *
 from desktopmagic.screengrab_win32 import getRectAsImage
-
+import pyautogui
 
 class function:
     def adjustFormat(fl,tag):
@@ -48,8 +48,16 @@ class function:
         workbook.save(filename=fl)
     
     def screenshot(fn):
+        inMiddleXY=(4565,500)
+        closePageXY=(3010,-1075)
+        clickOkToLeaveXY=(4000,-850)
         basicFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/"
         pngPath=basicFN+"png/"
         screenshotsXY=(2310,-600,4468,471)
+
+        pyautogui.click(inMiddleXY)
+        time.sleep(0.5)
         rect = getRectAsImage(screenshotsXY)
         rect.save(pngPath+fn+'.png', format='png')
+        pyautogui.click(closePageXY)
+        pyautogui.click(clickOkToLeaveXY)

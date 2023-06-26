@@ -24,22 +24,17 @@ table = pd.read_excel(io=tmpFN)
 table = np.array(table)
 table = table.tolist()
 length = len(table)
+inMiddleXY=(4565,500)
 
-openPageXY=(4565,500)
-closePageXY=(3010,-1075)
-clickOkToLeaveXY=(4000,-850)
 
-pyautogui.click(openPageXY)
-pyautogui.click(closePageXY)
+#玄学问题，先用这个移动到副屏再解决
+pyautogui.click(inMiddleXY)
+
 for i in range(length):
     fn=str(table[i][0])
     url=table[i][2]
     webbrowser.open(url)
     time.sleep(10)
-    pyautogui.click(openPageXY)
     function.screenshot(fn)
-    pyautogui.click(closePageXY)
-    pyautogui.click(clickOkToLeaveXY)
-    
     print(str(i+1)+'/'+str(length)+"\t"+str(int(str((i+1)/length)[2:4]))+"%")
 
