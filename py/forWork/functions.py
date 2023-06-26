@@ -59,5 +59,7 @@ class function:
         time.sleep(0.5)
         rect = getRectAsImage(screenshotsXY)
         rect.save(pngPath+fn+'.png', format='png')
+        time.sleep(0.5)
         pyautogui.click(closePageXY)
+        time.sleep(0.5)
         pyautogui.click(clickOkToLeaveXY)

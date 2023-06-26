@@ -50,13 +50,16 @@ while tag=='1':
         pyautogui.hotkey('ctrl', 'c')
         url=pyperclip.paste()
         fn=url.split(r"%2F")[4]
-        function.screenshot(fn)
-        time.sleep(1)
-        pyautogui.click(closePageXY)
-        pyautogui.click(firstPageXY)
         if fn not in students:
             students.append(fn)
+            function.screenshot(fn)
+        time.sleep(1)
+        pyautogui.click(closePageXY)
+        time.sleep(0.5)
+        pyautogui.click(firstPageXY)
+        
     tag=input("输入1以继续，同时记得切换页面并滑到最下方\n")
 
 df = pd.DataFrame(students)
+df = df.sort_values(by=0,ascending=False)
 df.to_excel(tmpFN, index=False)
