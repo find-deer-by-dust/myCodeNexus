@@ -11,6 +11,6 @@ import pyautogui
 import os
 import pyperclip
 
-inMiddleXY=(4565,500)
-pyautogui.moveTo(inMiddleXY)
-pyautogui.moveTo(2500,-1075)
+l=list()
+l.append(1)
+print(1 in l)
