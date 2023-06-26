@@ -60,5 +60,6 @@ while tag=='1':
         
     tag=input("输入1以继续，同时记得切换页面并滑到最下方\n")
     df = pd.DataFrame(students)
+    df.insert(1, '1', [1]*len(df))
     df = df.sort_values(by=0,ascending=False)
     df.to_excel(tmpFN, index=False)
