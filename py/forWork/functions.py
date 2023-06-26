@@ -6,6 +6,8 @@ from openpyxl.styles import Font
 from openpyxl import load_workbook
 from openpyxl import Workbook,load_workbook
 from openpyxl.styles import *
+from desktopmagic.screengrab_win32 import getRectAsImage
+
 
 class function:
     def adjustFormat(fl,tag):
@@ -44,3 +46,10 @@ class function:
                 i.number_format = '0.00%'
 
         workbook.save(filename=fl)
+    
+    def screenshot(fn):
+        basicFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/"
+        pngPath=basicFN+"png/"
+        screenshotsXY=(2310,-600,4468,471)
+        rect = getRectAsImage(screenshotsXY)
+        rect.save(pngPath+fn+'.png', format='png')

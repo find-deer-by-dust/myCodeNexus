@@ -29,19 +29,17 @@ openPageXY=(4565,500)
 closePageXY=(3010,-1075)
 clickOkToLeaveXY=(4000,-850)
 
-screenshotsXY=(2310,-600,4468,471)
-
 pyautogui.click(openPageXY)
 pyautogui.click(closePageXY)
 for i in range(length):
-    fn=str(table[i][0])+'.png'
+    fn=str(table[i][0])
     url=table[i][2]
     webbrowser.open(url)
     time.sleep(10)
     pyautogui.click(openPageXY)
-    rect = getRectAsImage(screenshotsXY)
+    function.screenshot(fn)
     pyautogui.click(closePageXY)
     pyautogui.click(clickOkToLeaveXY)
-    rect.save(pngPath+fn, format='png')
+    
     print(str(i+1)+'/'+str(length)+"\t"+str(int(str((i+1)/length)[2:4]))+"%")
 

@@ -18,30 +18,18 @@ tmpFN= basicFN+"doc/tmp.xlsx"
 dictFN=basicFN+"doc/dic.xlsx"
 sortFN=basicFN+"doc/sort.xlsx"
 pngPath=basicFN+"png/"
-os.system("cd C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/png && del * /q")
 
-table = pd.read_excel(io=tmpFN)
-table = np.array(table)
-table = table.tolist()
-length = len(table)
-
-openPageXY=(4565,500)
+#玄学问题，先用这个移动到副屏再解决
+#需要拖动到页面最下面
+pyautogui.moveTo(4565,500)
+startXY=(4930,-427)
+endXY=(4930,385)
 closePageXY=(3010,-1075)
-clickOkToLeaveXY=(4000,-850)
+openProjectXY=(4250,-500)
 
-screenshotsXY=(2310,-600,4468,471)
+stepLength=(endXY[1]-startXY[1])/9
 
-pyautogui.click(openPageXY)
-pyautogui.click(closePageXY)
-for i in range(length):
-    fn=str(table[i][0])+'.png'
-    url=table[i][2]
-    webbrowser.open(url)
-    time.sleep(10)
-    pyautogui.click(openPageXY)
-    rect = getRectAsImage(screenshotsXY)
-    pyautogui.click(closePageXY)
-    pyautogui.click(clickOkToLeaveXY)
-    rect.save(pngPath+fn, format='png')
-    print(str(i+1)+'/'+str(length)+"\t"+str(int(str((i+1)/length)[2:4]))+"%")
-
+pyautogui.moveTo(4250,-500)
+# for i in range(10):
+#     time.sleep(1)
+#     pyautogui.moveTo(startXY[0],startXY[1]+i*stepLength)
