@@ -45,7 +45,7 @@ for i in range(len(tableList)):
     tmp = list()
     mac=0
     for j in table:
-        if j[1]=='Windows' or j[1]=='Mac OS' or j[1]=='电脑' or str(j[1])=='1':
+        if j[1]=='Windows' or j[1]=='Mac OS' or j[1]=='电脑' or j[1]=='Linux' or str(j[1])=='1':
             j[1]='电脑'
         else :
             j[1]='pad'
