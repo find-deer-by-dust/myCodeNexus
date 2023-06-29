@@ -1,16 +1,23 @@
-import pandas as pd
-import numpy as np
-import time
-import datetime
-from openpyxl.styles import Font
-from openpyxl import load_workbook
-import time
-import webbrowser
-from desktopmagic.screengrab_win32 import getRectAsImage
-import pyautogui
-import os
-import pyperclip
+import re
 
-l=list()
-l.append(1)
-print(1 in l)
+str='''
+
+用空格键控制造型切换
+hi，小西瓜
+当空格键按下时要切换为仙人掌，所以要先使用【如果那么否则】，再使用【造型切换】放在【那么】语句后，点击倒三角选择仙人掌
+当空格键没有按下要切换回孙小弟，所以将【造型切换】语句放在【否则】语句后，点击倒三角选择孙小弟
+你也来试试吧
+
+
+
+
+'''
+
+str2=re.sub('([^\u4e00-\u9fa5])', '', str)
+str3=re.sub('([^\u0030-\u0039])', '', str)
+str4=re.sub('([^\u0041-\u005a])', '', str)
+str5=re.sub('([^\u0061-\u007a])', '', str)
+
+
+print(len(str2+str3+str4+str5))
+
