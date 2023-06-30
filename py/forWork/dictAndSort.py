@@ -40,10 +40,10 @@ tableList = list(zip(list(tableDic), list(tableDic.values())))
 #         i = i-1
 #     i = i+1
 
-macsum=0
+padSum=0
 for i in range(len(tableList)):
     tmp = list()
-    mac=0
+    pad=0
     for j in table:
         if j[1]=='Windows' or j[1]=='Mac OS' or j[1]=='电脑' or j[1]=='Linux' or str(j[1])=='1':
             j[1]='电脑'
@@ -51,11 +51,11 @@ for i in range(len(tableList)):
             j[1]='pad'
 
         if j[1]=='pad' and j[3]==tableList[i][0]:
-            mac=mac+1
-    macsum=macsum+mac
+            pad=pad+1
+    padSum=padSum+pad
     # tmp.append(i+1)
-    tmp.append(tableList[i][1]-mac)
-    tmp.append(mac)
+    tmp.append(tableList[i][1]-pad)
+    tmp.append(pad)
     tmp.append(tableList[i][1]/length)
     tmp.append(tableList[i][0])
     tableList[i] = tmp
@@ -66,8 +66,8 @@ df.insert(0, 'a', list(range(1,len(tableList)+1)))
 df.to_excel(sortFN, index=False)
 
 print("sum:",length)
-print("pc:",length-macsum)
-print("mac:",macsum)
+print("pc:",length-padSum)
+print("pad:",padSum)
 
 
 tableDic = dict()

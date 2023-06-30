@@ -14,13 +14,12 @@ from functions import *
 
 # 第一行需要属性栏
 basicFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/"
-tmpFN= basicFN+"doc/tmp.xlsx"
-dictFN=basicFN+"doc/dic.xlsx"
-sortFN=basicFN+"doc/sort.xlsx"
+imFN=basicFN+"doc/im.xlsx"
 pngPath=basicFN+"png/"
+
 os.system("cd C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/png && del * /q")
 
-table = pd.read_excel(io=tmpFN)
+table = pd.read_excel(io=imFN)
 table = np.array(table)
 table = table.tolist()
 length = len(table)
@@ -36,5 +35,5 @@ for i in range(length):
     webbrowser.open(url)
     time.sleep(10)
     function.screenshot(fn)
-    print(str(i+1)+'/'+str(length)+"\t"+str(int(str((i+1)/length)[2:4]))+"%")
+    print(str(i+1)+'/'+str(length)+"\t"+str(int((str((i+1)/length)+'0000')[2:4]))+"%")
 
