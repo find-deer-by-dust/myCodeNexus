@@ -15,7 +15,7 @@ from functions import *
 
 basicFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/"
 testFN= basicFN+"doc/test.txt"
-with open("1.txt", "r", encoding='utf-8') as f: 
+with open(testFN, "r", encoding='utf-8') as f: 
     text = f.read() 
 
 while True:
@@ -38,4 +38,5 @@ text=text.replace("～","~")
 text=text[text.find('：')+1:]
 text=text[text.find('：')+2:]
 text="AI创想家，开启AI新探索~\n\n"+text
+text=text.strip()
 pyperclip.copy(text)
