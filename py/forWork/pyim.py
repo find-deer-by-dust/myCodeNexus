@@ -23,6 +23,9 @@ while i <len(table):
     if table[i][2]!='Windows':
         table.pop(i)
         i-=1
+    elif len(table[i][0][:table[i][0].find('-')+2])==len(table[i][0]):
+        table.pop(i)
+        i-=1
     i+=1
 
 length = len(table)
@@ -47,7 +50,7 @@ for i in table:
     num=int(i[4])
     name=i[2].replace(".xpy3",'')
     tmp= re.sub(u"([^\u0030-\u0039])", "", name)
-    if name in i[1]:
+    if name in i[1] or "综合项目" in name:
         tag=8
     elif tmp!='':
         tag=int(tmp)+1
@@ -67,3 +70,4 @@ for i in range(len(newTable)):
 df = pd.DataFrame(newTable)
 df.to_excel(pyimFN, index=False)
 function.adjustFormat(pyimFN,1)
+

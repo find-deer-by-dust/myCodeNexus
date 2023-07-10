@@ -82,7 +82,7 @@ for i in range(len(table)):
 df = pd.DataFrame(table)
 df.to_excel(dictFN, index=False)
 
-function.toPercent(sortFN)
+function.toPercent(sortFN,'D')
 function.adjustFormat(dictFN,1)
 function.adjustFormat(sortFN,1)
 

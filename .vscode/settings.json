@@ -12,7 +12,8 @@
     },
     "python.formatting.provider": "none",
     "cSpell.words": [
-        "nltk"
+        "nltk",
+        "wraptext"
     ],
     "telemetry.enableTelemetry": false
 }

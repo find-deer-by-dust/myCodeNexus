@@ -10,7 +10,7 @@ from desktopmagic.screengrab_win32 import getRectAsImage
 import pyautogui
 
 class function:
-    def adjustFormat(fl,tag):
+    def adjustFormat(fl,wraptext):
         workbook = load_workbook(filename=fl)
         sheet = workbook.active
         s="QAZWSXEDCRFVTGBYHNUJMIOPKL"
@@ -22,7 +22,7 @@ class function:
         # for i in range(1,max_rows+1):
         #     for j in range(1,max_columns+1):
         #         c=sheet.cell(i, j)
-                if tag==1:
+                if wraptext==1:
                      align=Alignment(horizontal='left',vertical='center',wrapText=True)
                 else:
                     align=Alignment(horizontal='left',vertical='center')
@@ -34,16 +34,18 @@ class function:
                 c.alignment = align
         workbook.save(filename=fl)
 
-    def toPercent(fl):
+    def toPercent(fl,columns):
         workbook = load_workbook(filename=fl)
         sheet = workbook.active
-        tmp=sheet['D']
-        for i in tmp:
-            if i.value!=2:
-                data= i.value
-                data = float('%.4f' % (float(data)))
-                i.value = data
-                i.number_format = '0.00%'
+        for column in columns:
+            # tmp=sheet['D']
+            tmp=sheet[column]
+            for i in tmp:
+                if i.value!=2:
+                    data= i.value
+                    data = float('%.4f' % (float(data)))
+                    i.value = data
+                    i.number_format = '0.00%'
 
         workbook.save(filename=fl)
     
