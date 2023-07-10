@@ -11,7 +11,33 @@ public class Solution {
      */
     public ArrayList<Integer> maxInWindows(int[] num, int size) {
         // write code here
+        ArrayList<Integer> re = new ArrayList<>();
+        if (num == null) {
+            return null;
+        }
+        if (num.length == 0) {
+            return null;
+        }
+        int max = num[0];
+        int i = 0;
 
-        return null;
+        for (i = 0; i < size; i++) {
+            if (num[i] > max) {
+                max = num[i];
+            }
+        }
+        re.add(max);
+        for (i = size; i < num.length; i++) {
+            if (num[i] > max) {
+                max = num[i];
+            }
+            re.add(max);
+        }
+        return re;
+    }
+
+    int getMax(int[] num, int size, int x) {
+
+        return 1;
     }
 }
