@@ -7,7 +7,7 @@ public class Main {
 	public static void main(String[] args) {
 		Solution s= new Solution();
 		
-		System.out.println();
+		System.out.println(s.LastRemaining_Solution(5, 3));
 	}
 
 }

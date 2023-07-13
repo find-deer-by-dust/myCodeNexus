@@ -1,43 +1,32 @@
 import java.util.*;
 
+
 public class Solution {
     /**
      * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
      *
      * 
-     * @param num  int整型一维数组
-     * @param size int整型
-     * @return int整型ArrayList
+     * @param n int整型 
+     * @param m int整型 
+     * @return int整型
      */
-    public ArrayList<Integer> maxInWindows(int[] num, int size) {
+    public int LastRemaining_Solution (int n, int m) {
         // write code here
-        ArrayList<Integer> re = new ArrayList<>();
-        if (num == null) {
-            return null;
-        }
-        if (num.length == 0) {
-            return null;
-        }
-        int max = num[0];
-        int i = 0;
+        ArrayList<Integer> a=new ArrayList<>();
+        int s;
+        int tmp;
+        int tag=0;
+        for(int i=0;i<n;i++)
+            a.add(i);
 
-        for (i = 0; i < size; i++) {
-            if (num[i] > max) {
-                max = num[i];
-            }
+        while(a.size()!=1){
+            s=a.size();
+            tmp=(m%s-1+tag+s)%s;
+            tag=tmp;
+            // System.out.println(tmp);
+            // System.out.println(a.get(tmp));
+            a.remove(tmp);
         }
-        re.add(max);
-        for (i = size; i < num.length; i++) {
-            if (num[i] > max) {
-                max = num[i];
-            }
-            re.add(max);
-        }
-        return re;
-    }
-
-    int getMax(int[] num, int size, int x) {
-
-        return 1;
+        return a.get(0);
     }
 }
