@@ -1,0 +1,1 @@
+setx myCodeNexusPath %~dp0 /m

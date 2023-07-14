@@ -1,7 +1,7 @@
 import datetime
+import os
 
-key = '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'
-# key="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"
+key = os.environ['ChatGPTkey']
 
 class ChatGPT():
     userSay = ''
