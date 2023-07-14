@@ -1,8 +1,7 @@
 import time
 import os
-print(os.environ['ChatGPTKey'])
-myCodeNexusPath=os.environ['myCodeNexusPath']
-with open(myCodeNexusPath+'/py/tools/hadSent.log', "r+", encoding='utf-8') as f:
-        days = f.read()
-        print(days)
-        f.close()
+while True:
+        ping = os.popen("ping 192.168.0.104")
+
+        print('最短' in ping.read())
+        time.sleep(10)
