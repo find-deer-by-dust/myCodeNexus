@@ -1,32 +1,34 @@
 import java.util.*;
 
-
 public class Solution {
     /**
      * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
      *
      * 
-     * @param n int整型 
-     * @param m int整型 
+     * @param prices int整型一维数组
      * @return int整型
      */
-    public int LastRemaining_Solution (int n, int m) {
+    public int maxProfit(int[] prices) {
         // write code here
-        ArrayList<Integer> a=new ArrayList<>();
-        int s;
-        int tmp;
-        int tag=0;
-        for(int i=0;i<n;i++)
-            a.add(i);
-
-        while(a.size()!=1){
-            s=a.size();
-            tmp=(m%s-1+tag+s)%s;
-            tag=tmp;
-            // System.out.println(tmp);
-            // System.out.println(a.get(tmp));
-            a.remove(tmp);
+        if (prices == null)
+            return 0;
+        if (prices.length == 0)
+            return 0;
+        int minIndex = 0;
+        int maxIndex = 0;
+        for (int i = 0; i < prices.length; i++) {
+            if (prices[i] < prices[minIndex])
+                minIndex = i;
+            if (minIndex > maxIndex)
+                maxIndex = minIndex;
+            if (prices[i] > prices[maxIndex] && i > minIndex)
+                maxIndex = i;
         }
-        return a.get(0);
+        System.out.println(maxIndex);
+        System.out.println(minIndex);
+
+        if (maxIndex > minIndex)
+            return prices[maxIndex] - prices[minIndex];
+        return 0;
     }
 }
