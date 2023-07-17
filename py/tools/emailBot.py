@@ -30,11 +30,6 @@ while(True):
         content_text =""
         for i in tmp['data']['news']:
             content_text = content_text+i[i.find("、")+1:]+'\n\n'
-
-        if '最短' in ping:
-            content_text='nokia8正常工作中~\n\n'+content_text
-        else:
-            content_text='!!!手机没开机!!!\n!!!!\n\n'+content_text
         
         try:
             botSay=chat.reply('这是今天的新闻,说说你的看法,你的看法需要有政策性，针对性和准确性；在有限的篇幅中，主要靠独特的见解吸引读者；立意新颖，论述精当，文采斐然；主要面向广大群众\n'+content_text)
@@ -42,6 +37,11 @@ while(True):
             content_text="ChatGPT的看法:\n"+botSay+separator+"\n原新闻:\n"+content_text
         except:
             content_text=content_text
+        
+        if '最短' in ping:
+            content_text='nokia8正常工作中~\n\n'+content_text
+        else:
+            content_text='!!!手机没开机!!!\n!!!!\n\n'+content_text
         
         subject="每日60秒新闻 "+tmp['data']['date']
 
