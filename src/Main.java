@@ -7,7 +7,7 @@ public class Main {
 	public static void main(String[] args) {
 		Solution s = new Solution();
 
-		System.out.println();
+		System.out.println(s.Add(2, 3));
 	}
 
 }
