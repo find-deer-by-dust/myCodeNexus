@@ -12,6 +12,7 @@
     },
     "python.formatting.provider": "none",
     "cSpell.words": [
+        "getmy",
         "nltk",
         "wraptext"
     ],

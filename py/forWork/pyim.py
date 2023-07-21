@@ -7,9 +7,12 @@ from openpyxl import load_workbook
 import re
 from functions import *
 
-basicFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/"
-tmpFN= basicFN+"doc/tmp.xlsx"
-pyimFN=basicFN+"doc/pyim.xlsx"
+basicFN=function.getmyCodeNexusPath("/py/forWork")
+tmpFN=basicFN+"/doc/tmp.xlsx"
+dictFN=basicFN+"/doc/dict.xlsx"
+sortFN=basicFN+"/doc/sort.xlsx"
+imFN=basicFN+"/doc/im.xlsx"
+pyimFN=basicFN+"/doc/pyim.xlsx"
 
 # 第一行需要属性栏
 table = pd.read_excel(io=tmpFN)

@@ -8,6 +8,7 @@ from openpyxl import Workbook,load_workbook
 from openpyxl.styles import *
 from desktopmagic.screengrab_win32 import getRectAsImage
 import pyautogui
+import os
 
 class function:
     def adjustFormat(fl,wraptext):
@@ -53,8 +54,8 @@ class function:
         inMiddleXY=(4565,500)
         closePageXY=(3010,-1075)
         clickOkToLeaveXY=(4000,-850)
-        basicFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/"
-        pngPath=basicFN+"png/"
+        basicFN=function.getmyCodeNexusPath("/py/forWork")
+        pngPath=basicFN+"/png/"
         screenshotsXY=(2310,-600,4468,471)
 
         pyautogui.click(inMiddleXY)
@@ -65,3 +66,7 @@ class function:
         pyautogui.click(closePageXY)
         time.sleep(0.5)
         pyautogui.click(clickOkToLeaveXY)
+
+    def getmyCodeNexusPath(fn=''):
+        path=os.environ['myCodeNexusPath']+fn
+        return path

@@ -13,8 +13,14 @@ import pyperclip
 
 from functions import *
 
-basicFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/"
-testFN= basicFN+"doc/test.txt"
+basicFN=function.getmyCodeNexusPath("/py/forWork")
+tmpFN=basicFN+"/doc/tmp.xlsx"
+dictFN=basicFN+"/doc/dict.xlsx"
+sortFN=basicFN+"/doc/sort.xlsx"
+imFN=basicFN+"/doc/im.xlsx"
+testFN= basicFN+"/doc/test.txt"
+resultFN= basicFN+"/doc/result.txt"
+
 with open(testFN, "r", encoding='utf-8') as f: 
     text = f.read() 
 
@@ -40,3 +46,5 @@ text=text[text.find('：')+2:]
 text="AI创想家，开启AI新探索~\n\n"+text
 text=text.strip()
 pyperclip.copy(text)
+with open(resultFN,'w+',encoding='utf-8') as f:
+   f.write(text)

@@ -7,9 +7,11 @@ from openpyxl import load_workbook
 
 from functions import *
 
-basicFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/"
-tmpFN= basicFN+"doc/tmp.xlsx"
-imFN=basicFN+"doc/im.xlsx"
+basicFN=function.getmyCodeNexusPath("/py/forWork")
+tmpFN=basicFN+"/doc/tmp.xlsx"
+dictFN=basicFN+"/doc/dict.xlsx"
+sortFN=basicFN+"/doc/sort.xlsx"
+imFN=basicFN+"/doc/im.xlsx"
 
 table = pd.read_excel(io=tmpFN)
 table = np.array(table)

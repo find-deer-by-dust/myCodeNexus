@@ -14,11 +14,13 @@ import pyperclip
 from functions import *
 
 # 第一行需要属性栏
-basicFN="C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/"
-tmpFN= basicFN+"doc/tmp.xlsx"
+basicFN=function.getmyCodeNexusPath("/py/forWork")
+tmpFN=basicFN+"/doc/tmp.xlsx"
+dictFN=basicFN+"/doc/dict.xlsx"
+sortFN=basicFN+"/doc/sort.xlsx"
+imFN=basicFN+"/doc/im.xlsx"
 
-os.system("cd C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/png && del * /q")
-
+os.system("cd "+basicFN+"/py/forWork/png"+" && del * /q")
 
 startXY=(4930,-427)
 endXY=(4930,385)
