@@ -18,7 +18,7 @@ for i in rss['entries']:
                 text+=i['summary']
         text+='\n\n'
 
-        if(len(text)>3000):
+        if(len(text)>10000):
                 text=textCopy
                 break
 

@@ -16,7 +16,8 @@ class ChatGPT():
         # timeStart = time.perf_counter()
         openai.api_key = key
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            # model="gpt-3.5-turbo",
+            model='gpt-3.5-turbo-16k-0613',
             messages=[
                 {"role": "system", "content": self.systemContent},
                 {"role": "user", "content": self.userSayEx + userSay},
