@@ -1,5 +1,4 @@
-from bs4 import BeautifulSoup
+import os
+ssh = os.popen("ssh 192.168.0.104").read()
+print(ssh)
 
-from tools.ChatGPT import *
-gpt=ChatGPT()
-print(gpt.reply("hi"))
