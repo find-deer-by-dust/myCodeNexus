@@ -23,7 +23,7 @@ while(True):
     hour=int(time.strftime('%H', time.localtime()))
     today=time.strftime('%Y-%m-%d', time.localtime())
     if(hour > 8 and today not in days): 
-        ping = os.popen("ping 192.168.0.104").read()
+        ssh = os.popen("ssh 192.168.0.104").read()
 
         response = requests.request("POST", url, data=payload, headers=headers)
         tmp = response.json()
@@ -38,7 +38,7 @@ while(True):
         except:
             content_text=content_text
         
-        if '最短' in ping:
+        if 'Connection timed out'  not in ssh :
             content_text='nokia8正常工作中~\n\n'+content_text
         else:
             content_text='!!!手机没开机!!!\n!!!!\n\n'+content_text

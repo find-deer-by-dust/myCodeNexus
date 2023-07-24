@@ -22,6 +22,6 @@ for i in rss['entries']:
                 text=textCopy
                 break
 
-print(text)
-botSay=chat.reply('这是今天的新闻,你是一个专业的新闻人,你将所有新闻整合为更短的文章同时不丢失准确性和完整性\n'+text)
+# print(text)
+botSay=chat.reply('这是今天的新闻,说说你的看法,你的看法需要有政策性，针对性和准确性；在有限的篇幅中，主要靠独特的见解吸引读者；立意新颖，论述精当，文采斐然；主要面向广大群众\n'+text)
 print(botSay)
