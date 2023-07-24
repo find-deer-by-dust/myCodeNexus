@@ -38,7 +38,7 @@ while(True):
         except:
             content_text=content_text
         
-        if 'Connection timed out'  not in ssh :
+        if 'Connection timed out'  not in ssh and 'Connection refused' not in ssh:
             content_text='nokia8正常工作中~\n\n'+content_text
         else:
             content_text='!!!手机没开机!!!\n!!!!\n\n'+content_text
