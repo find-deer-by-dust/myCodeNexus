@@ -1,5 +1,3 @@
-from bs4 import BeautifulSoup
+Python='a'
 
-from tools.ChatGPT import *
-gpt=ChatGPT()
-print(gpt.reply("hi"))
+print(Python)
