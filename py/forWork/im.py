@@ -7,13 +7,15 @@ from openpyxl import load_workbook
 
 from functions import *
 
-basicFN=function.getmyCodeNexusPath("/py/forWork")
-tmpFN=basicFN+"/doc/tmp.xlsx"
-dictFN=basicFN+"/doc/dict.xlsx"
-sortFN=basicFN+"/doc/sort.xlsx"
-imFN=basicFN+"/doc/im.xlsx"
+# im用于将im获得的表格中不用的列删除,保存到tmp中
 
-table = pd.read_excel(io=tmpFN)
+basicPath=function.getmyCodeNexusPath("/py/forWork")
+tmpPath=basicPath+"/doc/tmp.xlsx"
+dictPath=basicPath+"/doc/dict.xlsx"
+sortPath=basicPath+"/doc/sort.xlsx"
+imPath=basicPath+"/doc/im.xlsx"
+
+table = pd.read_excel(io=tmpPath)
 table = np.array(table)
 table = table.tolist()
 tableSet=set()
@@ -42,6 +44,6 @@ while i>-1:
 df = pd.DataFrame(table)
 # print(df)
 df = df.sort_values(by=0,ascending=False)
-df.to_excel(imFN, index=False)
+df.to_excel(imPath, index=False)
 
-function.adjustFormat(imFN,0)
+function.adjustFormat(imPath,0)

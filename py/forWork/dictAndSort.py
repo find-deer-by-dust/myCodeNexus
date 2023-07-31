@@ -7,15 +7,19 @@ from openpyxl import load_workbook
 
 from functions import *
 
-basicFN=function.getmyCodeNexusPath("/py/forWork")
-tmpFN=basicFN+"/doc/tmp.xlsx"
-dictFN=basicFN+"/doc/dict.xlsx"
-sortFN=basicFN+"/doc/sort.xlsx"
-imFN=basicFN+"/doc/im.xlsx"
+# dictAndSort用于将错误问题判断好后
+# 统计错误并将其标号保存到dict
+# 再获得错误占比的表格保存到sort
+
+basicPath=function.getmyCodeNexusPath("/py/forWork")
+tmpPath=basicPath+"/doc/tmp.xlsx"
+dictPath=basicPath+"/doc/dict.xlsx"
+sortPath=basicPath+"/doc/sort.xlsx"
+imPath=basicPath+"/doc/im.xlsx"
 
 
 # 第一行需要属性栏
-table = pd.read_excel(io=tmpFN)
+table = pd.read_excel(io=tmpPath)
 table = np.array(table)
 table = table.tolist()
 length = len(table)
@@ -65,7 +69,7 @@ for i in range(len(tableList)):
 df = pd.DataFrame(tableList)
 df = df.sort_values(by=2,ascending=False)
 df.insert(0, 'a', list(range(1,len(tableList)+1)))
-df.to_excel(sortFN, index=False)
+df.to_excel(sortPath, index=False)
 
 print("sum:",length)
 print("pc:",length-padSum)
@@ -82,11 +86,11 @@ for i in range(len(table)):
     table[i][2] = tableDic[table[i][3]]
 
 df = pd.DataFrame(table)
-df.to_excel(dictFN, index=False)
+df.to_excel(dictPath, index=False)
 
-function.toPercent(sortFN,'D')
-function.adjustFormat(dictFN,1)
-function.adjustFormat(sortFN,1)
+function.toPercent(sortPath,'D')
+function.adjustFormat(dictPath,1)
+function.adjustFormat(sortPath,1)
 
 
 

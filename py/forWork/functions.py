@@ -10,8 +10,11 @@ from desktopmagic.screengrab_win32 import getRectAsImage
 import pyautogui
 import os
 
+# 保存调用的各种函数
+
 class function:
     def adjustFormat(fl,wraptext):
+        # 调整单元格格式
         workbook = load_workbook(filename=fl)
         sheet = workbook.active
         s="QAZWSXEDCRFVTGBYHNUJMIOPKL"
@@ -36,6 +39,7 @@ class function:
         workbook.save(filename=fl)
 
     def toPercent(fl,columns):
+        # 将对应行转换为百分数
         workbook = load_workbook(filename=fl)
         sheet = workbook.active
         for column in columns:
@@ -51,11 +55,12 @@ class function:
         workbook.save(filename=fl)
     
     def screenshot(fn):
+        # 截图函数
         inMiddleXY=(4565,500)
         closePageXY=(3010,-1075)
         clickOkToLeaveXY=(4000,-850)
-        basicFN=function.getmyCodeNexusPath("/py/forWork")
-        pngPath=basicFN+"/png/"
+        basicPath=function.getmyCodeNexusPath("/py/forWork")
+        pngPath=basicPath+"/png/"
         screenshotsXY=(2310,-600,4468,471)
 
         pyautogui.click(inMiddleXY)
@@ -68,5 +73,6 @@ class function:
         pyautogui.click(clickOkToLeaveXY)
 
     def getmyCodeNexusPath(fn=''):
+        # 获得myCodeNexus的路径位置
         path=os.environ['myCodeNexusPath']+fn
         return path

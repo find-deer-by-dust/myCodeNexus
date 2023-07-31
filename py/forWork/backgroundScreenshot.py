@@ -13,14 +13,16 @@ import pyperclip
 
 from functions import *
 
-# 第一行需要属性栏
-basicFN=function.getmyCodeNexusPath("/py/forWork")
-tmpFN=basicFN+"/doc/tmp.xlsx"
-dictFN=basicFN+"/doc/dict.xlsx"
-sortFN=basicFN+"/doc/sort.xlsx"
-imFN=basicFN+"/doc/im.xlsx"
+# backgroundScreenshot用于在后台截图
 
-os.system("cd "+basicFN+"/py/forWork/png"+" && del * /q")
+# 第一行需要属性栏
+basicPath=function.getmyCodeNexusPath("/py/forWork")
+tmpPath=basicPath+"/doc/tmp.xlsx"
+dictPath=basicPath+"/doc/dict.xlsx"
+sortPath=basicPath+"/doc/sort.xlsx"
+imPath=basicPath+"/doc/im.xlsx"
+
+os.system("cd "+basicPath+"/py/forWork/png"+" && del * /q")
 
 startXY=(4930,-427)
 endXY=(4930,385)
@@ -64,4 +66,4 @@ while tag=='1':
     df = pd.DataFrame(students)
     df.insert(1, '1', [1]*len(df))
     df = df.sort_values(by=0,ascending=False)
-    df.to_excel(tmpFN, index=False)
+    df.to_excel(tmpPath, index=False)
