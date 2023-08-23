@@ -1,58 +1,59 @@
-from  ChatGPT import *
-import requests
-import zmail
-import time
-import os
+import pyaudio
+import wave
+import threading
+import keyboard
 
+# 设置录音参数
+CHUNK = 1024
+FORMAT = pyaudio.paInt16
+CHANNELS = 1
+RATE = 44100
+RECORD_SECONDS = 0  # 初始录制时间为0
+OUTPUT_FILENAME = "output.wav"  # 输出文件名
 
-chat=ChatGPT()
-url = "https://v2.alapi.cn/api/zaobao"
-emailKey=os.environ['emailKey']
-server = zmail.server('chatgptemailbot@163.com', emailKey)
-payload = "token=7XzYphnEf5YENgaq"
-headers = {'Content-Type': "application/x-www-form-urlencoded"}
-users=["1915141975@qq.com"]
-myCodeNexusPath=os.environ['myCodeNexusPath']
-# users=["3350325473@qq.com","1915141975@qq.com","2609446429@qq.com"]
+# 创建一个标志用于控制录音线程
+recording = threading.Event()
+recording.set()  # 设置为True
 
-while(True):
-    with open(myCodeNexusPath+'/py/tools/hadSent.log', "r+", encoding='utf-8') as f:
-        days = f.read()
-        f.close()
-    
-    hour=int(time.strftime('%H', time.localtime()))
-    today=time.strftime('%Y-%m-%d', time.localtime())
-    if(hour > 8 and today not in days): 
-        ssh = os.popen("ssh 192.168.0.104").read()
+# 录音线程函数
+def record_audio():
+    global RECORD_SECONDS
+    audio = pyaudio.PyAudio()
+    stream = audio.open(
+        format=FORMAT,
+        channels=CHANNELS,
+        rate=RATE,
+        input=True,
+        frames_per_buffer=CHUNK
+    )
 
-        response = requests.request("POST", url, data=payload, headers=headers)
-        tmp = response.json()
-        content_text =""
-        for i in tmp['data']['news']:
-            content_text = content_text+i[i.find("、")+1:]+'\n\n'
-        
-        try:
-            botSay=chat.reply('这是今天的新闻,说说你的看法,你的看法需要有政策性，针对性和准确性；在有限的篇幅中，主要靠独特的见解吸引读者；立意新颖，论述精当，文采斐然；主要面向广大群众\n'+content_text)
-            separator='\n------我是分割线------\n'
-            content_text="ChatGPT的看法:\n"+botSay+separator+"\n原新闻:\n"+content_text
-        except:
-            content_text=content_text
-        
-        if 'Connection timed out'  not in ssh :
-            content_text='nokia8正常工作中~\n\n'+content_text
-        else:
-            content_text='!!!手机没开机!!!\n!!!!\n\n'+content_text
-        
-        subject="每日60秒新闻 "+tmp['data']['date']
+    frames = []
+    print("开始录音...")
+    while recording.is_set():  # 当recording为True时，录音继续
+        data = stream.read(CHUNK)
+        frames.append(data)
+        RECORD_SECONDS += CHUNK / RATE  # 更新录制时间
 
-        for user in users:
-            print("have sent email to " + user)
-            server.send_mail(user, {'subject': subject,'content_text': content_text})
-            with open(myCodeNexusPath+'/py/tools/hadSent.log', "a+", encoding='utf-8') as f:
-                f.write(time.strftime(today)+'\n')
-                f.close()
+    stream.stop_stream()
+    stream.close()
+    audio.terminate()
+    print("录音已停止.")
 
-    else:
-        time.sleep(60*60)
+    # 将录制的音频保存到文件
+    with wave.open(OUTPUT_FILENAME, "wb") as wf:
+        wf.setnchannels(CHANNELS)
+        wf.setsampwidth(audio.get_sample_size(FORMAT))
+        wf.setframerate(RATE)
+        wf.writeframes(b"".join(frames))
 
-    time.sleep(60*30)
+# 启动录音线程
+recording_thread = threading.Thread(target=record_audio)
+recording_thread.start()
+
+# 监测键盘事件，当按下任意键时停止录音
+print("按下任意键停止录音...")
+keyboard.wait("enter")  # 此处可以更改为任意您想要的按键，"enter"表示回车键
+recording.clear()  # 设置recording为False，停止录音
+
+# 等待录音线程结束
+recording_thread.join()

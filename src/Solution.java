@@ -1,40 +1,43 @@
-import java.util.*;
+public class Solution{
 
 
-public class Solution {
-    /**
-     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
-     *
-     * 
-     * @param s string字符串 
-     * @return int整型
-     */
-    public int StrToInt (String s) {
-        // write code here
-        char[] tmp=s.toCharArray();
-        int re=0;
-        boolean findNum=false;
-        boolean negative=false;
-        int i;
-        for(i=0;i<s.length();i++){
-            if(tmp[i]!=' ')
-                break;
+    void getNext(String p, int next[]) {
+        int j = 0;
+        int k = -1;
+        next[0] = -1;
+        while (j < p.length()-1) {
+          if (k == -1 || p.charAt(j) == p.charAt(k)) {
+            j++;
+            k++;
+            next[j] = k; 
+          } else {
+            k = next[k];
+          }
         }
-        if(i==s.length())
-            return re;
-        if(tmp[i]=='+'){
+      }
+      
+      int kmp(String s, String p) {
+        int i = 0;
+        int j = 0;
+        int[] next=new int[p.length()];
+        getNext(p, next);
+      
+        while (i < s.length() && j < p.length()) {
+          if (j == -1 || s.charAt(i) == p.charAt(j)) {
             i++;
+            j++;
+          } else {
+            j = next[j]; 
+          }
         }
-           
-        else if(tmp[i]=='-')
-            negative=true;
-        for(;i<s.length();i++){
-
-
-
+      
+        if (j == p.length()) {
+          return i - j;
+        } else {
+          return -1;
         }
-        if(negative)
-            return -re;
-        return re;
-    }
+      }
+
+
+
 }

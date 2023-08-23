@@ -14,6 +14,7 @@
     "cSpell.words": [
         "getmy",
         "nltk",
+        "pyttsx",
         "wraptext"
     ],
     "telemetry.enableTelemetry": false

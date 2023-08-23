@@ -14,10 +14,6 @@ forWork/ 用于保存实习中编写的自动化脚本
 
 others/ 用于保存其他内容
 
-### Go/
-
-用于练习Go语言
-
 ### addmyCodeNexusPath.cmd
 
 在windows平台下用**管理员身份**执行,将该项目path保存为环境变量解决部分程序路径错误的问题
