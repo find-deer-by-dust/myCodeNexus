@@ -7,15 +7,17 @@ from openpyxl import load_workbook
 import re
 from functions import *
 
-basicFN=function.getmyCodeNexusPath("/py/forWork")
-tmpFN=basicFN+"/doc/tmp.xlsx"
-dictFN=basicFN+"/doc/dict.xlsx"
-sortFN=basicFN+"/doc/sort.xlsx"
-imFN=basicFN+"/doc/im.xlsx"
-pyimFN=basicFN+"/doc/pyim.xlsx"
+# 坏,也忘了
+
+basicPath=function.getmyCodeNexusPath("/py/forWork")
+tmpPath=basicPath+"/doc/tmp.xlsx"
+dictPath=basicPath+"/doc/dict.xlsx"
+sortPath=basicPath+"/doc/sort.xlsx"
+imPath=basicPath+"/doc/im.xlsx"
+pyimPath=basicPath+"/doc/pyim.xlsx"
 
 # 第一行需要属性栏
-table = pd.read_excel(io=tmpFN)
+table = pd.read_excel(io=tmpPath)
 table = np.array(table)
 table = table.tolist()
 length = len(table)
@@ -71,6 +73,6 @@ for i in range(len(newTable)):
     newTable[i][9]=sum
 
 df = pd.DataFrame(newTable)
-df.to_excel(pyimFN, index=False)
-function.adjustFormat(pyimFN,1)
+df.to_excel(pyimPath, index=False)
+function.adjustFormat(pyimPath,1)
 

@@ -12,17 +12,19 @@ import os
 
 from functions import *
 
+# 在im后台截图
+
 # 第一行需要属性栏
-basicFN=function.getmyCodeNexusPath("/py/forWork")
-tmpFN=basicFN+"/doc/tmp.xlsx"
-dictFN=basicFN+"/doc/dict.xlsx"
-sortFN=basicFN+"/doc/sort.xlsx"
-imFN=basicFN+"/doc/im.xlsx"
-pngPath=basicFN+"/png/"
+basicPath=function.getmyCodeNexusPath("/py/forWork")
+tmpPath=basicPath+"/doc/tmp.xlsx"
+dictPath=basicPath+"/doc/dict.xlsx"
+sortPath=basicPath+"/doc/sort.xlsx"
+imPath=basicPath+"/doc/im.xlsx"
+pngPath=basicPath+"/png/"
 
 os.system("cd C:/Users/Administrator/Desktop/code/for-now-coder/py/forWork/png && del * /q")
 
-table = pd.read_excel(io=imFN)
+table = pd.read_excel(io=imPath)
 table = np.array(table)
 table = table.tolist()
 length = len(table)

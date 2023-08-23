@@ -13,38 +13,45 @@ import pyperclip
 
 from functions import *
 
-basicFN=function.getmyCodeNexusPath("/py/forWork")
-tmpFN=basicFN+"/doc/tmp.xlsx"
-dictFN=basicFN+"/doc/dict.xlsx"
-sortFN=basicFN+"/doc/sort.xlsx"
-imFN=basicFN+"/doc/im.xlsx"
-testFN= basicFN+"/doc/test.txt"
-resultFN= basicFN+"/doc/result.txt"
+# xiaoeAIGC用于删减文本中非对话内容
 
-with open(testFN, "r", encoding='utf-8') as f: 
+def deleteContent(text,x,y):
+    while True:
+        a=text.find(x)
+        b=text.find(y)
+        if a!=-1 and b!=-1:
+            if x in text[a+1:b] or a>b:
+                print('符号不匹配')
+                break
+            text=text[:a]+text[b+1:]
+        elif a*b<0:
+            print('有剩余符号')
+            break
+        else:
+            break
+    return text
+
+basicPath=function.getmyCodeNexusPath("/py/forWork")
+tmpPath=basicPath+"/doc/tmp.xlsx"
+dictPath=basicPath+"/doc/dict.xlsx"
+sortPath=basicPath+"/doc/sort.xlsx"
+imPath=basicPath+"/doc/im.xlsx"
+testPath= basicPath+"/doc/test.txt"
+resultPath= basicPath+"/doc/result.txt"
+
+with open(testPath, "r", encoding='utf-8') as f: 
     text = f.read() 
 
-while True:
-    a=text.find('（')
-    b=text.find('）')
-    if a!=-1 and b!=-1:
-        text=text[:a]+text[b+1:]
-    else:
-        break
+text=deleteContent(text,'（','）')
+text=deleteContent(text,'【','】')
 
-while True:
-    a=text.find('【')
-    b=text.find('】')
-    if a!=-1 and b!=-1:
-        text=text[:a]+text[b+1:]
-    else:
-        break
+for i in range(5):
+    text=text.replace("～"*(5-i),"~")
 
-text=text.replace("～","~")
 text=text[text.find('：')+1:]
 text=text[text.find('：')+2:]
 text="AI创想家，开启AI新探索~\n\n"+text
 text=text.strip()
 pyperclip.copy(text)
-with open(resultFN,'w+',encoding='utf-8') as f:
+with open(resultPath,'w+',encoding='utf-8') as f:
    f.write(text)

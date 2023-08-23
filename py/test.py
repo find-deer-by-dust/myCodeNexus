@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import pyaudio
 import wave
 import threading
@@ -57,3 +58,6 @@ recording.clear()  # 设置recording为False，停止录音
 
 # 等待录音线程结束
 recording_thread.join()
+=======
+eval("print('hello world')")
+>>>>>>> 7fe8a3def042d66f9d33bcfd4b347224178a4523
