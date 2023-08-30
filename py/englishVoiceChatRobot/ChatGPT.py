@@ -1,125 +1,94 @@
-import datetime
+
 import os
+import openai
 
 key = os.environ['ChatGPTkey']
+thisPath=os.environ['myCodeNexusPath'].replace('\\','/')+'/py/englishVoiceChatRobot'
 
 class ChatGPT():
     userSay = ''
     assistantContent = ''
     systemContent = ''
-    userSayEx = ''
-    chatgptSay = ''
+    needTokens=False
+    messages= ''
+    def __init__(self,userSay = '',assistantContent = '',systemContent = ''):
+        self.userSay=userSay
+        self.assistantContent=assistantContent
+        self.systemContent=systemContent
+        
 
-    def reply(self, userSay):
-        import openai
-        import time
-        # timeStart = time.perf_counter()
+    def reply(self, userSay='',needTokens=False,messages= ''):
+        self.needTokens=needTokens
+        self.messages=messages
         openai.api_key = key
+        if self.messages=='':
+            self.messages=[
+                {"role": "system", "content": self.systemContent},
+                {"role": "user", "content": userSay},
+                {"role": "assistant", "content": self.assistantContent},
+            ]
+
         response = openai.ChatCompletion.create(
             # model="gpt-3.5-turbo",
             model='gpt-3.5-turbo-16k-0613',
-            messages=[
-                {"role": "system", "content": self.systemContent},
-                {"role": "user", "content": self.userSayEx + userSay},
-                {"role": "assistant", "content": self.assistantContent},
-            ]
+            messages=self.messages
         )
-        chatgptSay = self.chatgptSay + \
-            response['choices'][0]['message']['content']
-        # timeEnd = time.perf_counter()
-        # return chatgptSay + '\n\t\t--耗时 ' + str(round(timeEnd - timeStart, 3)) + 's'
-        return chatgptSay+'\n'
+
+        chatgptSay = response['choices'][0]['message']['content']
+        if self.needTokens:
+            re={'text':chatgptSay,'tokens':response['usage']['total_tokens']}
+            
+            return re
+        else:
+            return chatgptSay
 
 
-class ChatGPTCompression(ChatGPT):
-    def __init__(self):
-        self.systemContent = '你需要把接受的对话内容简洁化,其中关于双方的个人信息必须保留,' \
-                             '必须保留原意,' \
-                             '在满足以上条件后尽可能简洁,' \
-                             '回复优化后的对话内容'
-        self.assistantContent = self.systemContent + ''
+class ChatGPTtoFile(ChatGPT):
+    fileName = "chatHistory"
 
-
-class ChatGPTReserveOrNot(ChatGPT):
-    def __init__(self):
-        self.systemContent = "你先回复'是'或者'否'" \
-                             "给你一段对话,是用户即我与ChatGPT即你的聊天,其中用户是A,ChatGPT是B," \
-                             "你判断这段对话是否有必要保留在本地." \
-                             "判断的依据包括" \
-                             "会影响未来ChatGPT对用户的回答," \
-                             "会导致在今后的对话中ChatGPT可以更个性化地对待用户," \
-                             "会提供有价值的信息," \
-                             "包含用户信息"
-        self.assistantContent = self.systemContent + ''
-
-
-class ChatGPTRwFile(ChatGPT):
-    fileName = "Chat_History"
-
-    def __init__(self, fn=fileName):
-        self.fileName = str(fn) + '.txt'
-        self.systemContent = '当你接收到我给你发的聊天记录后,你只需要依据历史聊天记录和当前对你的提问,做出回应就够了'
+    def __init__(self, fn=fileName, language='中文'):
+        import json
+        
+        self.fileName =thisPath+'/json/'+ str(fn) + '.json'
+        self.messages=[]
+        
         with open(self.fileName, "a+", encoding='utf-8') as f:
-            1
+            f.close()
         with open(self.fileName, "r+", encoding='utf-8') as f:
-            tmp = f.read()
-            if tmp == '':
-                tmp = "A:\nB:"
-                f.write(tmp)
-            tmp = f.read()
+            content = f.read()
+            if content!='':
+                self.messages=json.loads(content)
+            else:
+                self.messages.append({"role": "system", "content": '你始终使用'+language})
             f.close()
 
     def reply(self, userSay):
         import openai
-        import time
-        timeStart = time.perf_counter()
+        import json
+
         openai.api_key = key
+        self.messages.append({"role": "user", "content": userSay})
+        reply=super().reply(messages=self.messages,needTokens=True)
+        chatgptSay=reply['text']
+        tokens=reply['tokens']
+        self.messages.append({"role": "assistant", "content": chatgptSay})
 
-        with open(self.fileName, "r+", encoding='utf-8') as f:
-            tmp = f.read()
-            f.close()
-        self.assistantContent = '这是你和用户的历史聊天记录,你是A,用户是B\n' + tmp + '\nA:' + userSay
-
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": self.systemContent},
-                {"role": "user", "content": self.userSayEx + userSay},
-                {"role": "assistant", "content": self.assistantContent},
-            ]
-        )
-        chatgptSayNotReplace = response['choices'][0]['message']['content'].replace(
-            'B:', '').replace('A:', '')
-        chatgptSay = chatgptSayNotReplace.replace("\n", '').replace(' ', '')
-
-        if ChatGPTReserveOrNot().reply('A:' + userSay + '\nB:' + chatgptSay)[0] == '是':
-            tmp = tmp + "\nA:" + userSay + "\nB:" + chatgptSay
-        if response['usage']['total_tokens'] > 3000:
-            AList = []
-            fn = self.fileName + str(datetime.date.today()).replace('-', '.')
-            with open(fn, "a+", encoding='utf-8') as f:
-                f.write(tmp)
+        if tokens > 12000:
+            num=(len(self.messages)-1)//2//2
+            tmp=[]
+            for i in range(num):
+                tmp.append(self.messages.pop(1))
+            with open(self.fileName+'.bk', "a+", encoding='utf-8') as f:
+                f.write(json.dumps(tmp))
                 f.close()
-            for i in range(len(tmp)):
-                if tmp[i] == 'A' and tmp[i + 1] == ':':
-                    AList.append(i)
 
-            x = len(AList)
-            for i in range(x - 1):
-                if i % 2 == 1:
-                    tmp2 = tmp[AList[i]:AList[i + 1]]
-                    tmp = tmp.replace(tmp2, '^' * len(tmp2))
-            tmp = tmp.replace('^', '')
-            tmp = ChatGPTCompression().reply(tmp)
-            chatgptSay = '##目前云端历史聊天记录过多,已停止加载部分聊天记录,因此可以会忘记部分信息,请见谅,但云端依然有保存.\n' + chatgptSay
         with open(self.fileName, "w+", encoding='utf-8') as f:
-            f.write(tmp)
+            f.write(json.dumps(self.messages))
             f.close()
-        timeEnd = time.perf_counter()
-        return chatgptSayNotReplace + '\n\t\t--耗时 ' + str(round(timeEnd - timeStart, 3)) + 's'
+        return chatgptSay
 
 
-class ChatGPTBot(ChatGPTRwFile):
+class ChatGPTBot(ChatGPTtoFile):
 
     def start(self):
         print('当你输入"exit"时,即退出')
@@ -130,12 +99,3 @@ class ChatGPTBot(ChatGPTRwFile):
                 break
             print(self.reply(userSay))
 
-
-class CatChatGPTBot(ChatGPTBot):
-    fileName = "CatChatGPTBot"
-
-    def __init__(self, fn=fileName):
-        super(CatChatGPTBot, self).__init__(fn)
-        self.systemContent = '我们来玩cosplay,你现在是一个喜欢吃鱼的傲娇的猫娘,你的一切回答都从你是一个猫娘出发,' \
-                             '你以后说话不要说自己作为一个语言模型,你现在应该彻底扮演cosplay的角色,' \
-                             '而我就是你的主人'

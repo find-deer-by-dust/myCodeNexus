@@ -11,7 +11,7 @@ emailKey=os.environ['emailKey']
 server = zmail.server('chatgptemailbot@163.com', emailKey)
 payload = "token=7XzYphnEf5YENgaq"
 headers = {'Content-Type': "application/x-www-form-urlencoded"}
-users=["1915141975@qq.com"]
+users=["1915141975@qq.com","2499882140@qq.com"]
 myCodeNexusPath=os.environ['myCodeNexusPath']
 # users=["3350325473@qq.com","1915141975@qq.com","2609446429@qq.com"]
 
@@ -48,9 +48,10 @@ while(True):
         for user in users:
             print("have sent email to " + user)
             server.send_mail(user, {'subject': subject,'content_text': content_text})
-            with open(myCodeNexusPath+'/py/tools/hadSent.log', "a+", encoding='utf-8') as f:
-                f.write(time.strftime(today)+'\n')
-                f.close()
+        
+        with open(myCodeNexusPath+'/py/tools/hadSent.log', "a+", encoding='utf-8') as f:
+            f.write(time.strftime(today)+'\n')
+            f.close()
 
     else:
         time.sleep(60*60)

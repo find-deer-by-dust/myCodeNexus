@@ -3,4 +3,6 @@
 /py/tools/*.log
 /py/forWork/png/*
 /tmp.txt
-/py/englishVoiceChatRobot/output.wav
+/py/englishVoiceChatRobot/wav/*
+/py/englishVoiceChatRobot/json/*
+/py/englishVoiceChatRobot/*.txt
