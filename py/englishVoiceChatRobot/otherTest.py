@@ -1,21 +1,35 @@
+import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+os.environ["SUNO_USE_SMALL_MODELS"] = "True"
 
-import json
-messages=[]
-messages.append({"role": "system", "content": '你始终使用'})
 
-with open('chatHistory.json', "a+", encoding='utf-8') as f:
+from pydub import AudioSegment
+from bark import SAMPLE_RATE, generate_audio, preload_models
+from scipy.io.wavfile import write as write_wav
+
+
+thisPath=os.environ['myCodeNexusPath'].replace('\\','/')+'/py/englishVoiceChatRobot'
+outputPath=thisPath+'/wav/output.wav'
+inputPath=thisPath+'/wav/input.wav'
+tmpPath=thisPath+'/tmp.txt'
+
+# download and load all models
+# preload_models()
+
+# generate audio from text
+
+with open(tmpPath, "r+", encoding='utf-8') as f:
+    text_prompt=f.read()
     f.close()
-with open('chatHistory.json', "r+", encoding='utf-8') as f:
-    content = f.read()
-    if content!='':
-        tmp=json.loads(content)
-        for i in tmp:
-            messages.append(i)
 
-messages.append({"role": "assistant", "content": 'ea'})
-b = json.dumps(messages)
-f2 = open('chatHistory.json', 'w')
-f2.write(b)
-f2.close()
-print(messages)
-print(len(messages))
+# audio_array = generate_audio(text_prompt)
+
+# # save audio to disk
+# write_wav(outputPath, SAMPLE_RATE, audio_array)
+
+print(len(text_prompt))
+audio_array = generate_audio(text_prompt,history_prompt="v2/en_speaker_9")
+write_wav(thisPath+'/wav/d.wav', SAMPLE_RATE, audio_array)
+
+
+

@@ -46,7 +46,7 @@ class ChatGPT():
 class ChatGPTtoFile(ChatGPT):
     fileName = "chatHistory"
 
-    def __init__(self, fn=fileName, language='中文'):
+    def __init__(self, fn=fileName, messages={}):
         import json
         
         self.fileName =thisPath+'/json/'+ str(fn) + '.json'
@@ -56,15 +56,17 @@ class ChatGPTtoFile(ChatGPT):
             f.close()
         with open(self.fileName, "r+", encoding='utf-8') as f:
             content = f.read()
-            if content!='':
-                self.messages=json.loads(content)
-            else:
-                self.messages.append({"role": "system", "content": '你始终使用'+language})
             f.close()
+
+        if content!='':
+            self.messages=json.loads(content)
+        elif messages!={}:
+            self.messages.append(messages)
 
     def reply(self, userSay):
         import openai
         import json
+        import datetime
 
         openai.api_key = key
         self.messages.append({"role": "user", "content": userSay})
@@ -78,7 +80,8 @@ class ChatGPTtoFile(ChatGPT):
             tmp=[]
             for i in range(num):
                 tmp.append(self.messages.pop(1))
-            with open(self.fileName+'.bk', "a+", encoding='utf-8') as f:
+            date=str(datetime.date.today()).replace('-','.')
+            with open(self.fileName+date+'.bk', "a+", encoding='utf-8') as f:
                 f.write(json.dumps(tmp))
                 f.close()
 

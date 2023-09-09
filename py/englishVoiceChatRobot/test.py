@@ -1,5 +1,3 @@
-import ChatGPT
-
-c=ChatGPT.ChatGPTBot(language='english')
-
-c.start()
+import datetime
+print(datetime.date.today())
+print(str(datetime.date.today()).replace('-','.'))
