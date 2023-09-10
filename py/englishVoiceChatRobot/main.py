@@ -40,7 +40,7 @@ while True:
     text=getText()
     print(text)
 
-    GPT=ChatGPTtoFile(fn='lcy',messages={"role": "system", "content": '你始终使用英语,你作为用户的英语学习伙伴,你需要陪用户进行日常聊天交流.只有当用户句子有错误时,你才需要指出用户的错误'})
+    GPT=ChatGPTtoFile(fn='lcy',messages={"role": "system", "content": '你始终使用英语,你作为用户的英语学习伙伴,你需要陪用户进行日常聊天交流.只有当用户句子有语法或者表达错误时,你才需要指出用户的错误,无需在意用户的符号错误'})
 
     say=GPT.reply(text)
     with open(tmpPath, "w+", encoding='utf-8') as f:

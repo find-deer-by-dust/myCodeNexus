@@ -55,4 +55,7 @@ for i in range(num-1):
     output=output+sound
     print('正在处理第 '+str(i+1)+' 句的合成')
 
+for i in range(num):
+    os.remove(thisPath+'/wav/'+str(i))
+
 output.export(outputPath, format="wav")  # 保存文件
