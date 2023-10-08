@@ -1,32 +1,60 @@
 import java.util.*;
 
+/*
+ public class ListNode {
+    int val;
+    ListNode next = null;
+
+    ListNode(int val) {
+        this.val = val;
+    }
+}
+*/
 public class Solution {
-    /**
-     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
-     *
-     * 第N个月的兔子对数总和
-     * 
-     * @param monthNum int整型 monthNum个月
-     * @return int整型
-     */
-    int big = 0;
-    int small1 = 1;
-    int small2 = 0;
-    // int small3=0;
-    // int sum;
-    public int sum_rabbit(int monthNum) {
-        // write code here
-        if (monthNum == 1) {
-            return big+small1+small2;
+    public ListNode deleteDuplication(ListNode pHead) {
+        if (pHead==null)
+            return null;
+        if (pHead.next == null)
+            return pHead;
+
+        
+        ListNode head = new ListNode(-1);
+        head.next = pHead;
+
+        
+        pHead=head;
+        while (pHead.next != null) {
+            if (pHead.val == pHead.next.val) {
+                ListNode q = pHead.next;
+                while (q.val == pHead.val && q.next != null) {
+                    q.val = 0;
+                    q = q.next;
+                }
+                pHead.val = 0;
+                pHead = q;
+            } 
+            else
+                pHead = pHead.next;
         }
-        int tmp;
-        tmp=small2;
-        // small3=small2;
-        small2=small1;
-        big=big+tmp;
-        small1=big;
-        
-        
-        return sum_rabbit(monthNum - 1);
+
+        pHead=head;
+        ListNode tmp=head;
+        while(pHead!=null){
+            if(pHead.next.val==0){
+
+            }
+            else{
+                tmp.next=pHead.next; 
+                tmp=pHead.next;
+            }
+            pHead=pHead.next;
+        }
+
+        if(head.next==null){
+            return null;
+        }
+            
+
+        return head.next;
     }
 }
