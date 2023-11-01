@@ -1,3 +1,3 @@
-import datetime
-print(datetime.date.today())
-print(str(datetime.date.today()).replace('-','.'))
+from ChatGPT import ChatGPTBot
+bot=ChatGPTBot()
+bot.start()

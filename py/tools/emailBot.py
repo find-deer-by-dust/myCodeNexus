@@ -23,7 +23,7 @@ while(True):
     hour=int(time.strftime('%H', time.localtime()))
     today=time.strftime('%Y-%m-%d', time.localtime())
     if(hour > 8 and today not in days): 
-        ssh = os.popen("ssh 192.168.0.104").read()
+        ssh = os.popen("ssh 192.168.3.36").read()
 
         response = requests.request("POST", url, data=payload, headers=headers)
         tmp = response.json()
