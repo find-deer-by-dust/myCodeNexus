@@ -1,40 +1,37 @@
 import java.util.*;
 
-/*
- public class ListNode {
-    int val;
-    ListNode next = null;
-
-    ListNode(int val) {
-        this.val = val;
-    }
-}
-*/
 public class Solution {
-    public ListNode deleteDuplication(ListNode pHead) {
-        if (pHead == null)
-            return null;
-        if (pHead.next == null)
-            return pHead;
-
-        ListNode head = new ListNode(-1);
-        head.next = pHead;
-        ListNode p = head.next;
-        int tag = head.val;
-        while (p != null) {
-            if (p.val != tag) {
-                tag = p.val;
-            } else {
-                p.val = -1;
-            }
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
+     * 
+     * @param number long长整型
+     * @return long长整型
+     */
+    public long cutRope(long number) {
+        if (number <= 3)
+            return number - 1;
+        long a = number / 3;
+        long b = number % 3;
+        long c = 998244353L;
+        if (b == 0) {
+            return pow3WithMod(a, c) % c;
+        } else if (b == 1) {
+            return pow3WithMod(a - 1, c) * 4 % c;
+        } else {
+            return pow3WithMod(a, c) * 2 % c;
         }
-        p = head.next;
-        while (p.next != null) {
-            if (p.next.val == -1) {
-                p.val = -1;
-            }
-        }
+    }
 
-        return head.next;
+    public long pow3WithMod(long n, long mod) {
+        if (n == 0)
+            return 1;
+        if (n == 1)
+            return 3;
+        long part = pow3WithMod(n / 2, mod);
+        if (n % 2 == 0)
+            return part * part % mod;
+        else
+            return 3 * part * part % mod;
     }
 }
