@@ -194,10 +194,34 @@ public class myPlogic {
         if (f.contains("(")) {
 
             // 举例说明: 1|(1&(1|1)|0)&(1|0)
-            // 使用ab记录最大的括号内的下标范围
-            // 最大括号,也就是第一次出现 '(' 到最后一次出现 ')' 的范围
+
+////////////// 错误代码:
+            // // 使用ab记录最大的括号内的下标范围
+            // // 最大括号,也就是第一次出现 '(' 到最后一次出现 ')' 的范围
+            // int a = f.indexOf("(");
+            // int b = f.lastIndexOf(")");
+////////////// 这种方法得到的tmp应该是 1&(1|1)|0)&(1|0,并不是我们想要的结果
+
+////////////// 修改版:
+            // 使用ab记录遇见的第一个括号内的下标范围
             int a = f.indexOf("(");
-            int b = f.lastIndexOf(")");
+            int b = 0;
+
+            // 保存现在左括号的数量
+            int numberOfLeftParenthesis = 1;
+
+            // 遍历a以后的字符,直到左括号数等于右括号数时,完成括号匹配
+            for (int i = a + 1; i < f.length(); i++) {
+                if (f.charAt(i) == '(')
+                    numberOfLeftParenthesis++;
+                if (f.charAt(i) == ')')
+                    numberOfLeftParenthesis--;
+                if (numberOfLeftParenthesis == 0) {
+                    b = i;
+                    break;
+                }
+            }
+////////////
 
             // 此时tmp也就是 1&(1|1)|0
             String tmp = f.substring(a + 1, b);
